@@ -15,6 +15,7 @@ Some brief instructions:
 4. Go through the process of registering an app in the Google Calendar API dashboard in order to obtain the necessary API credentials. This process is described at https://developers.google.com/google-apps/calendar/quickstart/python - rename the downloaded file to ical_to_gcal_sync_client_secret.json and place it in the same location as the script. 
 5. Run the script. This should trigger the OAuth2 authentication process and prompt you to allow the app you created in step 4 to access your calendars. If successful it should store the credentials in ical_to_gcal_sync.json.
 6. Subsequent runs of the script should not require any further interaction unless the credentials are invalidated/changed.
+   
    python3 edt_to_gcal_sync_grenoble_inp/ical_to_gcal_sync.py
 
 ## Alternative:
