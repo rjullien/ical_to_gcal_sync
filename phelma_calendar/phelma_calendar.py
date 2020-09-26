@@ -1,9 +1,9 @@
 
 # ---
 # Module to read grenoble.inp agenda (edt) and filter keep only the groups I belong to
-# Configuration is done into config.py 
+# Configuration is done into configPhelma.py 
 #
-# example of config.py (not commited for security raison)
+# example of configPhelma.py (not commited for security raison)
 #
 # ICAL_FEED = 'https://loggin:passwd@edt.grenoble-inp.fr/directCal/2020-2021/etudiant/phelma?resources=20868,5574'
 #
@@ -15,7 +15,9 @@
 
 from ics import Calendar, Event
 import requests
-import config as cfg
+# Switch following import if used standalone
+# import configPhelma as cfg
+from phelma_calendar import configPhelma as cfg
 
 def get_phelma_calendar():
 
