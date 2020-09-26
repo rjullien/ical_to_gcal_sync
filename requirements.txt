@@ -1,4 +1,4 @@
-arrow==0.15.8
+7arrow==0.15.8
 cachetools==4.1.1
 certifi==2020.6.20
 chardet==3.0.4
@@ -26,3 +26,4 @@ six==1.15.0
 uritemplate==3.0.1
 urllib3==1.25.10
 zope.interface==5.1.0
+ics==0.7
