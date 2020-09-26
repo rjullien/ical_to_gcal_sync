@@ -16,6 +16,7 @@ from datetime import datetime, timezone, timedelta
 
 from auth import auth_with_calendar_api
 from config import *
+from phelma_calendar.phelma_calendar import get_phelma_calendar
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -132,8 +133,10 @@ if __name__ == '__main__':
     gcal_events = get_gcal_events(service, today.isoformat())
 
     # retrieve events from the iCal feed
-    logger.info('> Retrieving events from iCal feed')
-    ical_cal = get_current_events()
+    # logger.info('> Retrieving events from iCal feed')
+    # ical_cal = get_current_events()
+    logger.info('> Retrieving events from iCal feed using get_phelma_calendar module')
+    ical_cal = get_phelma_calendar()
 
     if ical_cal is None:
         sys.exit(-1)
@@ -144,12 +147,12 @@ if __name__ == '__main__':
     for ev in ical_cal:
         # explicitly set any events with no timezone to use UTC (icalevents
         # doesn't seem to do this automatically like ics.py)
-        if ev.start.tzinfo is None:
-            ev.start = ev.start.replace(tzinfo=timezone.utc)
+        if ev.begin.tzinfo is None:
+            ev.start = ev.begin.replace(tzinfo=timezone.utc)
         if ev.end is not None and ev.end.tzinfo is None:
             ev.end = ev.end.replace(tzinfo=timezone.utc)
 
-        ical_events[create_id(ev.uid, ev.start, ev.end)] = ev
+        ical_events[create_id(ev.uid, ev.begin, ev.end)] = ev
 
     logger.debug('> Collected {:d} iCal events'.format(len(ical_events)))
 
@@ -194,26 +197,26 @@ if __name__ == '__main__':
 
             # check if the iCal event has a different: start/end time, name, location,
             # or description, and if so sync the changes to the GCal event
-            if gcal_begin != ical_event.start\
+            if gcal_begin != ical_event.begin\
                 or gcal_end != ical_event.end\
-                or gcal_name != ical_event.summary\
+                or gcal_name != ical_event.name\
                 or gcal_has_location != ical_has_location \
                 or (gcal_has_location and gcal_event['location'] != ical_event.location) \
                 or gcal_event['description'] != ical_event.description:
 
                 logger.info(u'> Updating event "{}" due to date/time change...'.format(log_name))
-                delta = ical_event.end - ical_event.start
+                delta = ical_event.end - ical_event.begin
                 # all-day events handled slightly differently
                 # TODO multi-day events?
                 if delta.days >= 1:
-                    gcal_event['start'] = get_gcal_date(ical_event.start)
+                    gcal_event['start'] = get_gcal_date(ical_event.begin)
                     gcal_event['end'] = get_gcal_date(ical_event.end)
                 else:
-                    gcal_event['start'] = get_gcal_datetime(ical_event.start, gcal_cal['timeZone'])
+                    gcal_event['start'] = get_gcal_datetime(ical_event.begin, gcal_cal['timeZone'])
                     if ical_event.end is not None:
                         gcal_event['end']   = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
 
-                gcal_event['summary'] = ical_event.summary
+                gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
                 gcal_event['source'] = {'title': 'imported from ical_to_gcal_sync.py', 'url': ICAL_FEED}
                 gcal_event['location'] = ical_event.location
@@ -226,22 +229,22 @@ if __name__ == '__main__':
     for ical_id, ical_event in ical_events.items():
         if ical_id not in gcal_event_ids:
             gcal_event = {}
-            gcal_event['summary'] = ical_event.summary
+            gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
-            gcal_event['description'] = '%s (Imported from mycal.py)' % ical_event.description
+            gcal_event['description'] = ical_event.description
             gcal_event['location'] = ical_event.location
 
             # check if no time specified in iCal, treat as all day event if so
-            delta = ical_event.end - ical_event.start
+            delta = ical_event.end - ical_event.begin
             # TODO multi-day events?
             if delta.days >= 1:
-                gcal_event['start'] = get_gcal_date(ical_event.start)
-                logger.info(u'iCal all-day event {} to be added at {}'.format(ical_event.summary, ical_event.start))
+                gcal_event['start'] = get_gcal_date(ical_event.begin)
+                logger.info(u'iCal all-day event {} to be added at {}'.format(ical_event.name, ical_event.begin))
                 if ical_event.end is not None:
                     gcal_event['end'] = get_gcal_date(ical_event.end)
             else:
-                gcal_event['start'] = get_gcal_datetime(ical_event.start, gcal_cal['timeZone'])
-                logger.info(u'iCal event {} to be added at {}'.format(ical_event.summary, ical_event.start))
+                gcal_event['start'] = get_gcal_datetime(ical_event.begin, gcal_cal['timeZone'])
+                logger.info(u'iCal event {} to be added at {}'.format(ical_event.name, ical_event.begin))
                 if ical_event.end is not None:
                     gcal_event['end'] = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
 
