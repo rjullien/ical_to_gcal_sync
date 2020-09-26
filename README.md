@@ -2,7 +2,7 @@ This script can be used to periodically pull events from grenoble-inp iCal feed 
 
 This module is mainly based on ical_to_gcal_sync open source project, customized for grenoble-inp edt
 
-I'm putting the code here in case it's useful to grenoble-inp student similarly frustrated with edt slowness and unreadable edt. Note that it's not particularly polished or well-packaged.
+I'm putting the code here in case it's useful to any grenoble-inp student similarly frustrated with edt slowness and unreadability. Note that it's not particularly polished or well-packaged.
 
 ## Using the script
 
@@ -15,3 +15,11 @@ Some brief instructions:
 4. Go through the process of registering an app in the Google Calendar API dashboard in order to obtain the necessary API credentials. This process is described at https://developers.google.com/google-apps/calendar/quickstart/python - rename the downloaded file to ical_to_gcal_sync_client_secret.json and place it in the same location as the script. 
 5. Run the script. This should trigger the OAuth2 authentication process and prompt you to allow the app you created in step 4 to access your calendars. If successful it should store the credentials in ical_to_gcal_sync.json.
 6. Subsequent runs of the script should not require any further interaction unless the credentials are invalidated/changed.
+   python3 edt_to_gcal_sync_grenoble_inp/ical_to_gcal_sync.py
+
+## Alternative:
+The submodule phelma_calendar could be used as a standalone product to produce a filtered ICS and manually import the edt 
+into your google calendar.
+The following file is generated: ADECalFiltered.ics
+
+   python3 edt_to_gcal_sync_grenoble_inp/phelma_calendar/phelma_calendar.py
