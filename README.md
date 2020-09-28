@@ -11,7 +11,7 @@ I'm putting the code here in case it's useful to any grenoble-inp student simila
 Some brief instructions:
 1. Edit configPhelma.py and set both needed parameters
 2. Edit config.py, Set CALENDAR_ID to the ID of the Google Calendar instance you want to insert events into. You can set it to "primary" to use the default main calendar, or create a new secondary calendar (in which case you can find the ID on the settings page, of the form 'longID@group.calendar.google.com').
-3. pip install -r requirements.txt
+3. pip3 install -r requirements.txt
 4. Go through the process of registering an app in the Google Calendar API dashboard in order to obtain the necessary API credentials. This process is described at https://developers.google.com/google-apps/calendar/quickstart/python - rename the downloaded file to ical_to_gcal_sync_client_secret.json and place it in the same location as the script. 
 5. Run the script. This should trigger the OAuth2 authentication process and prompt you to allow the app you created in step 4 to access your calendars. If successful it should store the credentials in ical_to_gcal_sync.json.
 6. Subsequent runs of the script should not require any further interaction unless the credentials are invalidated/changed.
@@ -24,3 +24,15 @@ into your google calendar.
 The following file is generated: ADECalFiltered.ics
 
    python3 edt_to_gcal_sync_grenoble_inp/phelma_calendar/phelma_calendar.py
+
+## Install on RPI - BUSTER only, need Python3.7 
+
+mkdir PhelmaEdt
+cd PhelmaEdt
+wget https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/archive/V0.2.tar.gz
+tar xvf V0.2.tar.gz
+rm V0.2.tar.gz
+pip3 install -r edt_to_gcal_sync_grenoble_inp-0.2/requirements.txt
+--> Update both config files + google credential
+python3 edt_to_gcal_sync_grenoble_inp-0.2/phelma_calendar/phelma_calendar.py
+Update the API_SLEEP_TIME if you get 'Rate Limit Exceeded' 

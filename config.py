@@ -24,7 +24,7 @@ APPLICATION_NAME = 'Phelma calendar'
 LOGFILE = 'ical_to_gcal_sync_log.txt'
 
 # Time to pause between successive API calls that may trigger rate-limiting protection
-API_SLEEP_TIME = 0.10
+API_SLEEP_TIME = 0.90
    
 # Integer value >= 0
 # Controls the timespan within which events from ICAL_FEED will be processed 
