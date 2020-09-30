@@ -36,3 +36,13 @@ pip3 install -r edt_to_gcal_sync_grenoble_inp-0.2/requirements.txt
 --> Update both config files + google credential
 python3 edt_to_gcal_sync_grenoble_inp-0.2/phelma_calendar/phelma_calendar.py
 Update the API_SLEEP_TIME if you get 'Rate Limit Exceeded' 
+
+## Add a crontab and sync two calendars (example to show how to set up for several calendars at 10pm daily but Saturday)
+
+cd PhelmaEdt
+mv edt_to_gcal_sync_grenoble_inp-0.2/synPhelma.sh .
+mv edt_to_gcal_sync_grenoble_inp-0.2/startSynPhelma.sh .
+
+Update crontab (crontab -e) with:
+00 22 * * 0-5 /home/pi/PhelmaEdt/startSynPhelma.sh >>/home/pi/PhelmaEdt/cron.txt 2>&1
+Provide source config files referenced into synPhelma.sh
