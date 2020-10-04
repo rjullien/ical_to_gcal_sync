@@ -39,3 +39,6 @@ API_SLEEP_TIME = 0.90
 # actually be equivalent to "all events up to a year from now" (to sync events
 # further into the future than that, set a sufficiently high number of days).
 ICAL_DAYS_TO_SYNC = 0
+
+# How long we synchronize with Google, do not suuport 0, a valid nb of day should be set
+GCAL_DAYS_TO_SYNC = 21

@@ -49,7 +49,7 @@ def get_current_events():
 
     return cal
 
-def get_gcal_events(service, from_time):
+def get_gcal_events(service, from_time, to_time):
     """Retrieves the current set of Google Calendar events from the selected
     user calendar. Only includes upcoming events (those taking place from start
     of the current day. 
@@ -66,6 +66,7 @@ def get_gcal_events(service, from_time):
     # make an initial call, if this returns all events we don't need to do anything else,,,
     eventsResult = service.events().list(calendarId=CALENDAR_ID, 
                                          timeMin=from_time, 
+                                         timeMax=to_time,
                                          singleEvents=True, 
                                          orderBy='startTime', 
                                          showDeleted=True).execute()
@@ -81,6 +82,7 @@ def get_gcal_events(service, from_time):
         token = eventsResult['nextPageToken']
         eventsResult = service.events().list(calendarId=CALENDAR_ID, 
                                              timeMin=from_time, 
+                                             timeMax=to_time,
                                              pageToken=token, 
                                              singleEvents=True, 
                                              orderBy='startTime', 
@@ -127,10 +129,13 @@ if __name__ == '__main__':
 
     # dateime instance representing the start of the current day (UTC)
     today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-
+    
+    # dateime instance representing the max to synchonize
+    maxday =  today + timedelta(days=GCAL_DAYS_TO_SYNC)
+    
     # retrieve events from Google Calendar, starting from beginning of current day
     logger.info('> Retrieving events from Google Calendar')
-    gcal_events = get_gcal_events(service, today.isoformat())
+    gcal_events = get_gcal_events(service, today.isoformat(), maxday.isoformat())
 
     # retrieve events from the iCal feed
     # logger.info('> Retrieving events from iCal feed')
@@ -253,4 +258,10 @@ if __name__ == '__main__':
                 service.events().insert(calendarId=CALENDAR_ID, body=gcal_event).execute()
             except:
                 time.sleep(API_SLEEP_TIME)
-                service.events().update(calendarId=CALENDAR_ID, eventId=gcal_event['id'], body=gcal_event).execute()
+                try:
+                    service.events().update(calendarId=CALENDAR_ID, eventId=gcal_event['id'], body=gcal_event).execute()
+                except:
+                    # print("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
+                    logger.info("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
+
+                

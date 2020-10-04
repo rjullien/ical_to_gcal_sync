@@ -9,3 +9,4 @@ cp edt_to_gcal_sync_grenoble_inp-0.2/configRomane.py  edt_to_gcal_sync_grenoble_
 cp edt_to_gcal_sync_grenoble_inp-0.2/phelma_calendar/configPhelmaRomane.py edt_to_gcal_sync_grenoble_inp-0.2/phelma_calendar/configPhelma.py
 echo "synch Romane"
 python3 edt_to_gcal_sync_grenoble_inp-0.2/ical_to_gcal_sync.py
+echo "sync done"
