@@ -46,3 +46,8 @@ mv edt_to_gcal_sync_grenoble_inp-0.2/startSynPhelma.sh .
 Update crontab (crontab -e) with:
 00 22 * * 0-5 /home/pi/PhelmaEdt/startSynPhelma.sh >>/home/pi/PhelmaEdt/cron.txt 2>&1
 Provide source config files referenced into synPhelma.sh
+
+## Possible evolutions
+
+move from opt-in to opt-out the config file to ensure nothing is lost (e.g.: keep #3PMKTCP6_2020_S5_DS_PET_PMP_G1 while removing al #3PMKTCP6_2020_S5_CTD_PET_DE_PMP_CDE_G* but keeping the rigth Gn)
+Ability to create from scratch recurring activities such as sport, that are mandatory but not into edt
