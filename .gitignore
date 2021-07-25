@@ -87,3 +87,14 @@ ENV/
 
 # Rope project settings
 .ropeproject
+Config/configRomane.py
+Config/configPhelmaEnola.py
+Config/configPhelmaBapt.py
+Config/configPhelmaRomane.py
+Config/configPhelmaArthur.py
+Config/configPhelmaAlex.py
+Config/configEnola.py
+Config/configBapt.py
+Config/configArthur.py
+Config/configAlex.py
+.DS_Store
