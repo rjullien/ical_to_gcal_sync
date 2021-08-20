@@ -52,6 +52,40 @@ Update crontab (crontab -e) with:
 00 22 * * 0-5 /home/pi/PhelmaEdt/startSynPhelma.sh >>/home/pi/PhelmaEdt/cron.txt 2>&1
 Provide source config files referenced into synPhelma.sh
 ```
+## Send email during the process
+
+install msmtp
+```
+sudo apt-get install msmtp
+```
+create config file /etc/msmtprc
+```
+# Valeurs par défaut pour tous les comptes.
+defaults
+auth           on
+tls            on
+tls_starttls   on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        /var/log/msmtp.log
+
+# Exemple pour un compte Gmail
+account        gmail
+auth           plain
+host           smtp.gmail.com
+port           587
+from           root@raspi-buster
+user           BBB@gmail.com
+password       Passwd
+
+# Default
+account default : gmail
+```
+
+Add this line into the .sh
+```
+printf "Subject:Synchronise edt INP\nCalendar of XXX, YYY, ZZZ synchronised" | sudo msmtp AAA@gmail.com
+```
+
 ## Possible evolutions
 
 move from opt-in to opt-out the config file to ensure nothing is lost (e.g.: keep #3PMKTCP6_2020_S5_DS_PET_PMP_G1 while removing al #3PMKTCP6_2020_S5_CTD_PET_DE_PMP_CDE_G* but keeping the rigth Gn)
