@@ -15,15 +15,23 @@
 
 from ics import Calendar, Event
 import requests
-# Switch following import if used standalone
-# import configPhelma as cfg
-from phelma_calendar import configPhelma as cfg
+import os
+from pathlib import Path
+
+config ={}
+config_path=os.environ.get('CONFIG_PATH','configPhelma.py')
+CONFIG_PATH='/home/pi/PhelmaEdt/edt_to_gcal_sync_grenoble_inp-0.2/configAlex.py'
+if config_path != 'configPhelma.py':
+    # replace substring in config_path named 'config*' with the 'phelma_calendar/configPhelma*'
+    config_path = config_path.replace('config','phelma_calendar/configPhelma')
+    # print("config_path: "+config_path)
+exec(Path(config_path).read_text(), config)
 
 def get_phelma_calendar():
 
     # Read grenoble-inp agenda
     c = Calendar()
-    url = cfg.ICAL_FEED
+    url = config['ICAL_FEED']
     c = Calendar(requests.get(url).text)
 
     # create the list of events to be filtered out from the one read previously
@@ -31,7 +39,7 @@ def get_phelma_calendar():
 
     # for each event, if it matches the filter out rule, remove them from the event list
     for EventEdt in c.events:
-        for (f1,f2) in cfg.SET_TO_REMOVE:
+        for (f1,f2) in config['SET_TO_REMOVE']:
             # test if EventEdt.name exits
             if hasattr(EventEdt,'name'):
                 if(EventEdt.name.find(f1)!=-1): # If it matches a candidate topic
