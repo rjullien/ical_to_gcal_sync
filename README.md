@@ -11,7 +11,7 @@ I'm putting the code here in case it's useful to any grenoble-inp student simila
 Some brief instructions:
 0. Edit configPhelma.py and set both needed parameters
 1. Copy `config.py.example` to a new file `config.py` or a custom file (see *Multiple Configurations* below)
-2. Set `ICAL_FEED` to the URL of the iCal feed you want to sync events from. If the feed is passowrd protected set also the variables `ICAL_FEED_USER` and `ICAL_FEED_PASS`.
+2. Set `ICAL_FEED` to the URL of the iCal feed you want to sync events from. If the feed is password protected set also the variables `ICAL_FEED_USER` and `ICAL_FEED_PASS`.
 3. Set `CALENDAR_ID` to the ID of the Google Calendar instance you want to insert events into. You can set it to `primary` to use the default main calendar, or create a new secondary calendar (in which case you can find the ID on the settings page, of the form `longID@group.calendar.google.com`).
 4. `pip install -r requirements.txt`
    if requirement cannot be processed, check that python is a symbolic link to python3 in /usr/bin, if not you can move it, anyway python2.7 is no more supported

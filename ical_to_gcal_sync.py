@@ -2,12 +2,10 @@
 # Added support for multiple calendars in the same config file:
 # this one is complex to merge:
 # https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/22cdb78da987c5604d5ef622fe4421f9974a092f
-
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/1f9ce88f10f8cc9d34b2253499f661a680b33541
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/ea6955886532a888f22f51e104d3434d8ae4ad82
 # https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/d94fa009145182fe3fe75721efda2acd17bb19f8
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/855cf908c0de6e2f41a724783bb23f2a01d718cc
 
-
+#
 from __future__ import print_function
 
 import logging
