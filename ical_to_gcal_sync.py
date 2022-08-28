@@ -37,14 +37,19 @@ def get_current_events_from_files():
     from os.path import join
 
     event_ics = glob(join(ICAL_FEED , '*.ics'))
+    logger.debug('> Found {} local .ics files in {}'.format(len(event_ics), join(ICAL_FEED, '*.ics')))
 
     if len(event_ics) > 0:
         ics = event_ics[0]
+        logger.debug('> Loading file {}'.format(ics))
         cal = get_current_events(ics)
+        logger.debug('> Found {} new events'.format(len(cal)))
         for ics in event_ics[1:]:
+            logger.debug('> Loading file {}'.format(ics))
             evt = get_current_events(ics)
             if len(evt) > 0:
                 cal.extend(evt)
+            logger.debug('> Found {} new events'.format(len(evt)))
         return cal
     else:
         return None
@@ -66,8 +71,10 @@ def get_current_events(feed):
 
     try:
         if FILES:
+            logger.info('> Retrieving events from local folder')
             cal = events(file=feed, end=events_end)
         else:
+            logger.info('> Retrieving events from iCal feed')
             cal = events(feed, end=events_end)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
@@ -259,8 +266,11 @@ if __name__ == '__main__':
                     if ical_event.end is not None:
                         gcal_event['end']   = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
 
+                logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.summary, gcal_event['start']))
+
                 gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
+                
                 if GRENOBLE_INP:
                     url_feed=GRENOBLE_INP_SRC
                 else:
