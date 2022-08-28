@@ -90,7 +90,7 @@ def get_current_events(feed):
     """
 
     events_end = datetime.now()
-    if config['ICAL_DAYS_TO_SYNC'] == 0:
+    if config.get('ICAL_DAYS_TO_SYNC',0) == 0:
         # default to 1 year ahead
         events_end += DEFAULT_TIMEDELTA
     else:
@@ -100,7 +100,7 @@ def get_current_events(feed):
     try:
         if config['FILES']:
             logger.info('> Retrieving events from local folder')
-            cal = events(file=feed, end=events_end)
+            cal = events(file=feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0)), end=events_end)
         else:
             logger.info('> Retrieving events from iCal feed')
             cal = events(feed, end=events_end)
@@ -201,7 +201,7 @@ if __name__ == '__main__':
     
     # retrieve events from Google Calendar, starting from beginning of current day
     logger.info('> Retrieving events from Google Calendar')
-    gcal_events = get_gcal_events(service, today.isoformat(), maxday.isoformat())
+    gcal_events = get_gcal_events(service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0))).isoformat(), to_time=maxday.isoformat())
 
     # retrieve events from the iCal feed
     # logger.info('> Retrieving events from iCal feed')
