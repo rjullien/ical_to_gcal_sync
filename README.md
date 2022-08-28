@@ -9,11 +9,11 @@ I'm putting the code here in case it's useful to any grenoble-inp student simila
 > NOTE: requires Python 3.7+
 
 Some brief instructions:
-1. Edit configPhelma.py and set both needed parameters
-1. Edit config.py or copy to new file (see *Multiple Configurations* below)
-2. Set ICAL_FEED to the URL of the iCal feed you want to sync events from.
-3. Set CALENDAR_ID to the ID of the Google Calendar instance you want to insert events into. You can set it to "primary" to use the default main calendar, or create a new secondary calendar (in which case you can find the ID on the settings page, of the form 'longID@group.calendar.google.com').
-4. pip3 install -r requirements.txt
+0. Edit configPhelma.py and set both needed parameters
+1. Copy `config.py.example` to a new file `config.py` or a custom file (see *Multiple Configurations* below)
+2. Set `ICAL_FEED` to the URL of the iCal feed you want to sync events from. If the feed is passowrd protected set also the variables `ICAL_FEED_USER` and `ICAL_FEED_PASS`.
+3. Set `CALENDAR_ID` to the ID of the Google Calendar instance you want to insert events into. You can set it to `primary` to use the default main calendar, or create a new secondary calendar (in which case you can find the ID on the settings page, of the form `longID@group.calendar.google.com`).
+4. `pip install -r requirements.txt`
    if requirement cannot be processed, check that python is a symbolic link to python3 in /usr/bin, if not you can move it, anyway python2.7 is no more supported
 5. Go through the process of registering an app in the Google Calendar API dashboard in order to obtain the necessary API credentials. This process is described at https://developers.google.com/google-apps/calendar/quickstart/python - rename the downloaded file to ical_to_gcal_sync_client_secret.json and place it in the same location as the script. 
 6. Run the script. This should trigger the OAuth2 authentication process and prompt you to allow the app you created in step 4 to access your calendars. If successful it should store the credentials in ical_to_gcal_sync.json.

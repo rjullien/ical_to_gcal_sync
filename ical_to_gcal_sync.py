@@ -1,15 +1,5 @@
 # Behind a few PR, TBD:
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/af0e2b647b1d5fd71e53944ca5b0b4155f53c42e
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/b8a8bc07277b6ea51bf37c769b980b7656ee6366
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/9cd3a702d3695a2bb15cdb701687d6c2b86569a8
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/0b03cb97ee141fde083d01794bb772a35cec8dad
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/5a22eb334d0f310883d7abcc830ac9070fd4bd38
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/a3b219e3d923d3112adb98ad2bc9d912a5f78866
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/bfecd40ce20358bad170f396eb9c87a056bfe614
-#  Merged to: https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/e1e001c96e9607ad5a0e137ffa274aa112818bd4
-
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/745eb735a39f01ca2d54abec4c5052c6c25e2ab2
-# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/8a7a9b4786722c0f64e55d503a1534f4b3d09a6a
+# Added support for multiple calendars in the same config file:
 # https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/22cdb78da987c5604d5ef622fe4421f9974a092f
 # https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/ea6955886532a888f22f51e104d3434d8ae4ad82
 # https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/1f9ce88f10f8cc9d34b2253499f661a680b33541
@@ -36,6 +26,7 @@ from datetime import datetime, timezone, timedelta
 from auth import auth_with_calendar_api
 
 from pathlib import Path
+from httplib2 import Http
 config ={}
 config_path=os.environ.get('CONFIG_PATH','config.py')
 
@@ -101,7 +92,14 @@ def get_current_events(feed):
             cal = events(file=feed, end=events_end)
         else:
             logger.info('> Retrieving events from iCal feed')
-            cal = events(file=feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0)), end=events_end)
+            # directly configure http connection object to set ssl and authentication parameters
+            http_conn = Http(cache='.cache', disable_ssl_certificate_validation=not config.get('ICAL_FEED_VERIFY_SSL_CERT', True))
+
+            if config.get('ICAL_FEED_USER') and config.get('ICAL_FEED_PASS'):
+                # credentials used for every connection
+                http_conn.add_credentials(name=config.get('ICAL_FEED_USER'), password=config.get('ICAL_FEED_PASS'))
+
+            cal = events(feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0)), end=events_end, http=http_conn)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
         return None
@@ -316,10 +314,10 @@ if __name__ == '__main__':
                     url_feed=config['GRENOBLE_INP_SRC']
                 else:
                     if config['FILES']:
-                        url_feed = 'https://www.google.com' 
+                        url_feed = 'https://events.from.ics.files.com' 
                     else:
                         url_feed = config['ICAL_FEED']
-                gcal_event['source'] = {'title': 'imported from ical_to_gcal_sync.py', 'url': url_feed}
+                gcal_event['source'] = {'title': 'Imported from ical_to_gcal_sync.py', 'url': url_feed}
                 gcal_event['location'] = ical_event.location
 
                 service.events().update(calendarId=config['CALENDAR_ID'], eventId=eid, body=gcal_event).execute()
@@ -335,6 +333,16 @@ if __name__ == '__main__':
             gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
             gcal_event['description'] = '%s (Imported from mycal.py)' % ical_event.description
+            gcal_event['description'] = ical_event.description
+            if config['GRENOBLE_INP']:
+                url_feed=config['GRENOBLE_INP_SRC']
+            else: 
+                if config['FILES']:
+                    url_feed = 'https://events.from.ics.files.com'
+                else:
+                    url_feed = config['ICAL_FEED']
+            gcal_event['source'] = {'title': 'Imported from ical_to_gcal_sync.py', 'url': url_feed}
+
             gcal_event['location'] = ical_event.location
 
             # check if no time specified in iCal, treat as all day event if so
@@ -359,8 +367,10 @@ if __name__ == '__main__':
                 time.sleep(config['API_SLEEP_TIME'])
                 try:
                     service.events().update(calendarId=config['CALENDAR_ID'], eventId=gcal_event['id'], body=gcal_event).execute()
-                except:
+                except Exception as ex:
                     # print("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
                     logger.info("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
+                    logger.error("Error updating: %s (%s)" % ( gcal_event['id'], ex ) )
+
 
                 
