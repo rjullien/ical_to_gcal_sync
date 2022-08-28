@@ -32,11 +32,20 @@ def get_phelma_calendar():
     # for each event, if it matches the filter out rule, remove them from the event list
     for EventEdt in c.events:
         for (f1,f2) in cfg.SET_TO_REMOVE:
-            if(EventEdt.name.find(f1)!=-1): # If it matches a candidate topic
-                if(EventEdt.description.find(f2)==-1): # Check if the group in the description <> from my group
-                     eventOut.remove(EventEdt) # remove this event
-                     #print("Remove "+EventEdt.name + " Desc: " + EventEdt.description)
-
+            # test if EventEdt.name exits
+            if hasattr(EventEdt,'name'):
+                if(EventEdt.name.find(f1)!=-1): # If it matches a candidate topic
+                    if(EventEdt.description.find(f2)==-1): # Check if the group in the description <> from my group
+    #                     print("Remove "+EventEdt.name + " Desc: " + EventEdt.description)
+                        # try to remove the event from the list
+                        try:
+                            eventOut.remove(EventEdt)   # remove the event from the list
+                        except:
+                            print("Error: Cannot remove this Event: "+EventEdt.name+ " Desc: " + EventEdt.description)
+            else:
+                print("Error: No name for event: ")
+                print(EventEdt)
+                              
     # print(str(eventOut))
     return eventOut
 
