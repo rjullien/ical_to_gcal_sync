@@ -25,4 +25,4 @@ six==1.15.0
 uritemplate==3.0.1
 urllib3==1.26.5
 zope.interface==5.1.0
-ics==0.7
+ics==0.7.2

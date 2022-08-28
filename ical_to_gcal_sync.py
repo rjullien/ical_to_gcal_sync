@@ -284,7 +284,7 @@ if __name__ == '__main__':
                     if ical_event.end is not None:
                         gcal_event['end']   = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
 
-                logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.summary, gcal_event['start']))
+                logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['start']))
 
                 gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
