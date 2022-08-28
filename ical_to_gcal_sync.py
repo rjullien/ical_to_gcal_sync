@@ -36,7 +36,7 @@ def get_current_events_from_files():
     from glob import glob
     from os.path import join
 
-    event_ics = glob(join(ICAL_FEED + '*.ics'))
+    event_ics = glob(join(ICAL_FEED , '*.ics'))
 
     if len(event_ics) > 0:
         ics = event_ics[0]
