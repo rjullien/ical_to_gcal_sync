@@ -1,11 +1,18 @@
 # The iCal feed URL for the events that should be synced to the Google Calendar.
 # Note that the syncing is one-way only.
-ICAL_FEED = 'Not used, replaced by phelma calendar'
+ICAL_FEED = 'Not used, replaced by phelma calendar if GRENOBLE_INP=True'
+# If FILES is True then ICAL_FEED is the path to a folder full of ics files.
+FILES = False
+# If GRENOBLE_INP is True then the ical feed is the one for Grenoble INP.
+GRENOBLE_INP=True
+GRENOBLE_INP_SRC='https://edt.grenoble-inp.fr/2022-2023/prepaINPGrenoble/etudiant/jsp/custom/modules/plannings/direct_planning.jsp'
+
+# Option to remove items from the calendar, exemple calendar contains options you are not registered for
+SET_TO_REMOVE=(("impossible to find","impossible to find"),("impossible to find","impossible to find"))
 
 # the ID of the calendar to use for iCal events, should be of the form
 # 'ID@group.calendar.google.com', check the calendar settings page to find it.
 # (can also be 'primary' to use the default calendar)
-# Prod
 CALENDAR_ID = 'primary'
 
 # must use the OAuth scope that allows write access
@@ -41,4 +48,4 @@ API_SLEEP_TIME = 0.90
 ICAL_DAYS_TO_SYNC = 0
 
 # How long we synchronize with Google, do not suuport 0, a valid nb of day should be set
-GCAL_DAYS_TO_SYNC = 21
+GCAL_DAYS_TO_SYNC = 29

@@ -98,3 +98,4 @@ Config/configBapt.py
 Config/configArthur.py
 Config/configAlex.py
 .DS_Store
+ical_to_gcal_sync.pckl

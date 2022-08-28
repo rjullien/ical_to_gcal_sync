@@ -1,3 +1,4 @@
+# retrofit PR kialio committed on 29 Sep 2020 
 from __future__ import print_function
 
 import logging
@@ -5,7 +6,7 @@ import time
 import string
 import re
 import sys
-import pickle
+#import pickle
 
 import googleapiclient
 import arrow
@@ -15,7 +16,7 @@ from dateutil.tz import gettz
 from datetime import datetime, timezone, timedelta
 
 from auth import auth_with_calendar_api
-from config import *
+from config import ICAL_FEED, FILES, CALENDAR_ID, API_SLEEP_TIME, ICAL_DAYS_TO_SYNC, LOGFILE, GCAL_DAYS_TO_SYNC, GRENOBLE_INP, GRENOBLE_INP_SRC
 from phelma_calendar.phelma_calendar import get_phelma_calendar
 
 logger = logging.getLogger(__name__)
@@ -26,7 +27,29 @@ logger.addHandler(handler)
 
 DEFAULT_TIMEDELTA = timedelta(days=365)
 
-def get_current_events():
+def get_current_events_from_files():
+    """Retrieves data from iCal files.  Assumes that the files are all 
+    *.ics files located in a single directory.
+        Returns the parsed Calendar object of None if no events are found.
+    """
+
+    from glob import glob
+    from os.path import join
+
+    event_ics = glob(join(ICAL_FEED + '*.ics'))
+
+    if len(event_ics) > 0:
+        ics = event_ics[0]
+        cal = get_current_events(ics)
+        for ics in event_ics[1:]:
+            evt = get_current_events(ics)
+            if len(evt) > 0:
+                cal.extend(evt)
+        return cal
+    else:
+        return None
+
+def get_current_events(feed):
     """Retrieves data from iCal iCal feed and returns an ics.Calendar object 
     containing the parsed data.
 
@@ -42,7 +65,10 @@ def get_current_events():
         events_end += timedelta(days=ICAL_DAYS_TO_SYNC)
 
     try:
-        cal = events(ICAL_FEED, end=events_end)
+        if FILES:
+            cal = events(file=feed, end=events_end)
+        else:
+            cal = events(feed, end=events_end)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
         return None
@@ -140,8 +166,16 @@ if __name__ == '__main__':
     # retrieve events from the iCal feed
     # logger.info('> Retrieving events from iCal feed')
     # ical_cal = get_current_events()
-    logger.info('> Retrieving events from iCal feed using get_phelma_calendar module')
-    ical_cal = get_phelma_calendar()
+    if GRENOBLE_INP:
+        logger.info('> Retrieving events from iCal feed using get_phelma_calendar module')
+        ical_cal = get_phelma_calendar()
+    else:
+        if FILES:
+            logger.info('> Retrieving events from files feed using get_current_events_from_files module')
+            ical_cal = get_current_events_from_files()
+        else:
+            logger.info('> Retrieving events from iCal feed using get_current_events module')
+            ical_cal = get_current_events(ICAL_FEED)
 
     if ical_cal is None:
         sys.exit(-1)
@@ -196,6 +230,9 @@ if __name__ == '__main__':
             gcal_has_location = 'location' in gcal_event
             ical_has_location = ical_event.location is not None
 
+            gcal_has_description = 'description' in gcal_event
+            ical_has_description = ical_event.description is not None
+
             # event name can be left unset, in which case there's no summary field
             gcal_name = gcal_event.get('summary', None)
             log_name = '<unnamed event>' if gcal_name is None else gcal_name
@@ -207,7 +244,8 @@ if __name__ == '__main__':
                 or gcal_name != ical_event.name\
                 or gcal_has_location != ical_has_location \
                 or (gcal_has_location and gcal_event['location'] != ical_event.location) \
-                or gcal_event['description'] != ical_event.description:
+                or gcal_has_description != ical_has_description \
+                or (gcal_has_description and gcal_event['description'] != ical_event.description):    
 
                 logger.info(u'> Updating event "{}" due to date/time change...'.format(log_name))
                 delta = ical_event.end - ical_event.begin
@@ -223,7 +261,14 @@ if __name__ == '__main__':
 
                 gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
-                gcal_event['source'] = {'title': 'imported from ical_to_gcal_sync.py', 'url': ICAL_FEED}
+                if GRENOBLE_INP:
+                    url_feed=GRENOBLE_INP_SRC
+                else:
+                    if FILES:
+                        url_feed = 'https://www.google.com' 
+                    else:
+                        url_feed = ICAL_FEED
+                gcal_event['source'] = {'title': 'imported from ical_to_gcal_sync.py', 'url': url_feed}
                 gcal_event['location'] = ical_event.location
 
                 service.events().update(calendarId=CALENDAR_ID, eventId=eid, body=gcal_event).execute()
