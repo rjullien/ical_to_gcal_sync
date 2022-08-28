@@ -27,11 +27,9 @@ if config_path != 'configPhelma.py':
     # print("config_path: "+config_path)
 exec(Path(config_path).read_text(), config)
 
-def get_phelma_calendar():
-
+def get_phelma_calendar(url):
     # Read grenoble-inp agenda
     c = Calendar()
-    url = config['ICAL_FEED']
     c = Calendar(requests.get(url).text)
 
     # create the list of events to be filtered out from the one read previously
@@ -62,11 +60,13 @@ def get_phelma_calendar():
 #        To fully automate, this module is used with a modified version of ical_to_gcal_sync (start-> begin, summary-> name, call this module instead of the ulr)
 # Do not forget to set the proper values into config.py (one for this module, one for ical_to_gcal_sync)
 # ----
-calendarOut  = open("./ADECalFiltered.ics", "w") 
+
+""" calendarOut  = open("./ADECalFiltered.ics", "w") 
 calendarOut.write("BEGIN:VCALENDAR\nMETHOD:REQUEST\nPRODID:-//ADE/version 6.0\nVERSION:2.0\nCALSCALE:GREGORIAN\n")
-eventOut=get_phelma_calendar()
+eventOut=get_phelma_calendar('test')
 for EventEdt in eventOut:
     calendarOut.write(str(EventEdt)+'\n')
 
 calendarOut.write("END:VCALENDAR\n")
-calendarOut.close() 
+calendarOut.close()  """
+

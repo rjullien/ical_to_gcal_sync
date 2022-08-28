@@ -17,18 +17,18 @@ import os
 
 import googleapiclient
 import arrow
+from googleapiclient import errors
 from icalevents.icalevents import events
 from dateutil.tz import gettz
 
 from datetime import datetime, timezone, timedelta
 
 from auth import auth_with_calendar_api
-
 from pathlib import Path
 from httplib2 import Http
-config ={}
-config_path=os.environ.get('CONFIG_PATH','config.py')
 
+config = {}
+config_path=os.environ.get('CONFIG_PATH', 'config.py')
 exec(Path(config_path).read_text(), config)
 
 from phelma_calendar.phelma_calendar import get_phelma_calendar
@@ -44,26 +44,29 @@ logger.addHandler(handler)
 
 DEFAULT_TIMEDELTA = timedelta(days=365)
 
-def get_current_events_from_files():
+def get_current_events_from_files(path):
+    
     """Retrieves data from iCal files.  Assumes that the files are all 
     *.ics files located in a single directory.
+
         Returns the parsed Calendar object of None if no events are found.
+
     """
 
     from glob import glob
     from os.path import join
 
-    event_ics = glob(join(config['ICAL_FEED'], '*.ics'))
-    logger.debug('> Found {} local .ics files in {}'.format(len(event_ics), join(config['ICAL_FEED'], '*.ics')))
+    event_ics = glob(join(path, '*.ics'))
 
+    logger.debug('> Found {} local .ics files in {}'.format(len(event_ics), join(path, '*.ics')))
     if len(event_ics) > 0:
         ics = event_ics[0]
         logger.debug('> Loading file {}'.format(ics))
-        cal = get_current_events(ics)
+        cal = get_current_events(feed_url_or_path=ics, files=True)
         logger.debug('> Found {} new events'.format(len(cal)))
         for ics in event_ics[1:]:
             logger.debug('> Loading file {}'.format(ics))
-            evt = get_current_events(ics)
+            evt = get_current_events(feed_url_or_path=ics, files=True)
             if len(evt) > 0:
                 cal.extend(evt)
             logger.debug('> Found {} new events'.format(len(evt)))
@@ -71,9 +74,10 @@ def get_current_events_from_files():
     else:
         return None
 
-def get_current_events(feed):
+def get_current_events(feed_url_or_path, files):
     """Retrieves data from iCal iCal feed and returns an ics.Calendar object 
     containing the parsed data.
+
     Returns the parsed Calendar object or None if an error occurs.
     """
 
@@ -86,9 +90,9 @@ def get_current_events(feed):
         events_end += timedelta(days=config['ICAL_DAYS_TO_SYNC'])
 
     try:
-        if config['FILES']:
+        if files:
             logger.info('> Retrieving events from local folder')
-            cal = events(file=feed, end=events_end)
+            cal = events(file=feed_url_or_path, end=events_end)
         else:
             logger.info('> Retrieving events from iCal feed')
             # directly configure http connection object to set ssl and authentication parameters
@@ -98,14 +102,14 @@ def get_current_events(feed):
                 # credentials used for every connection
                 http_conn.add_credentials(name=config.get('ICAL_FEED_USER'), password=config.get('ICAL_FEED_PASS'))
 
-            cal = events(feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0)), end=events_end, http=http_conn)
+            cal = events(feed_url_or_path, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0)), end=events_end, http=http_conn)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
         return None
 
     return cal
 
-def get_gcal_events(service, from_time, to_time):
+def get_gcal_events(calendar_id, service, from_time, to_time):
     """Retrieves the current set of Google Calendar events from the selected
     user calendar. Only includes upcoming events (those taking place from start
     of the current day. 
@@ -120,30 +124,30 @@ def get_gcal_events(service, from_time, to_time):
     logger.debug('Retrieving Google Calendar events')
 
     # make an initial call, if this returns all events we don't need to do anything else,,,
-    eventsResult = service.events().list(calendarId=config['CALENDAR_ID'], 
+    events_result = service.events().list(calendarId=calendar_id,
                                          timeMin=from_time, 
                                          timeMax=to_time,
                                          singleEvents=True, 
                                          orderBy='startTime', 
                                          showDeleted=True).execute()
 
-    events = eventsResult.get('items', [])
+    events = events_result.get('items', [])
     # if nextPageToken is NOT in the dict, this should be everything
-    if 'nextPageToken' not in eventsResult:
+    if 'nextPageToken' not in events_result:
         logger.info('> Found {:d} upcoming events in Google Calendar (single page)'.format(len(events)))
         return events
 
     # otherwise keep calling the method, passing back the nextPageToken each time
-    while 'nextPageToken' in eventsResult:
-        token = eventsResult['nextPageToken']
-        eventsResult = service.events().list(calendarId=config['CALENDAR_ID'], 
+    while 'nextPageToken' in events_result:
+        token = events_result['nextPageToken']
+        events_result = service.events().list(calendarId=calendar_id,
                                              timeMin=from_time, 
                                              timeMax=to_time,
                                              pageToken=token, 
                                              singleEvents=True, 
                                              orderBy='startTime', 
                                              showDeleted=True).execute()
-        newevents = eventsResult.get('items', [])
+        newevents = events_result.get('items', [])
         events.extend(newevents)
         logger.debug('> Found {:d} events on new page, {:d} total'.format(len(newevents), len(events)))
     
@@ -179,11 +183,12 @@ def create_id(uid, begintime, endtime):
     return re.sub('[^{}]'.format(allowed_chars), '', uid.lower()) + str(arrow.get(begintime).timestamp) + str(arrow.get(endtime).timestamp)
 
 if __name__ == '__main__':
-    mandatory_configs = ['CALENDAR_ID', 'CREDENTIAL_PATH', 'ICAL_FEED', 'APPLICATION_NAME']
+    mandatory_configs = ['CREDENTIAL_PATH', 'ICAL_FEEDS', 'APPLICATION_NAME']
     for mandatory in mandatory_configs:
         if not config.get(mandatory) or config[mandatory][0] == '<':
-            logger.error("Must specify a non-blank value for %s in the config file" % ( mandatory ) )
+            logger.error("Must specify a non-blank value for %s in the config file" % mandatory)
             sys.exit(1)
+
     # setting up Google Calendar API for use
     logger.debug('> Loading credentials')
     service = auth_with_calendar_api(config)
@@ -191,26 +196,29 @@ if __name__ == '__main__':
     # dateime instance representing the start of the current day (UTC)
     today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     
+    for feed in config.get('ICAL_FEEDS'):
+        logger.info('> Processing source %s' % feed['source'])
+    
     # dateime instance representing the max to synchonize
     maxday =  today + timedelta(days=config['GCAL_DAYS_TO_SYNC'])
-    
+   
     # retrieve events from Google Calendar, starting from beginning of current day
     logger.info('> Retrieving events from Google Calendar')
-    gcal_events = get_gcal_events(service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0))).isoformat(), to_time=maxday.isoformat())
+    gcal_events = get_gcal_events(calendar_id=feed['destination'], service=service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0))).isoformat(), to_time=maxday.isoformat())
 
     # retrieve events from the iCal feed
     # logger.info('> Retrieving events from iCal feed')
     # ical_cal = get_current_events()
     if config['GRENOBLE_INP']:
         logger.info('> Retrieving events from iCal feed using get_phelma_calendar module')
-        ical_cal = get_phelma_calendar()
+        ical_cal = get_phelma_calendar(feed['source'])
     else:
-        if config['FILES']:
-            logger.info('> Retrieving events from files feed using get_current_events_from_files module')
-            ical_cal = get_current_events_from_files()
-        else:
-            logger.info('> Retrieving events from iCal feed using get_current_events module')
-            ical_cal = get_current_events(config['ICAL_FEED'])
+         if feed['files']:
+            logger.info('> Retrieving events from local folder')
+            ical_cal = get_current_events_from_files(feed['source'])
+         else:
+            logger.info('> Retrieving events from iCal feed')
+            ical_cal = get_current_events(feed_url_or_path=feed['source'], files=False)
 
     if ical_cal is None:
         sys.exit(-1)
@@ -221,17 +229,29 @@ if __name__ == '__main__':
     for ev in ical_cal:
         # explicitly set any events with no timezone to use UTC (icalevents
         # doesn't seem to do this automatically like ics.py)
+    
         if ev.begin.tzinfo is None:
+            print("ev.begin.tzinfo is None")
             ev.start = ev.begin.replace(tzinfo=timezone.utc)
         if ev.end is not None and ev.end.tzinfo is None:
             ev.end = ev.end.replace(tzinfo=timezone.utc)
+            print("ev.end is not None and ev.end.tzinfo is None")
+            try:
+                if 'EVENT_PREPROCESSOR' in config:
+                    keep = config['EVENT_PREPROCESSOR'](ev)
+                    if not keep:
+                        logger.debug("Skipping event %s - EVENT_PREPROCESSOR returned false" % (str(ev)))
+                        continue
+
+            except Exception as ex:
+                logger.error("Error processing entry (%s) - leaving as-is" % str(ev))
 
         ical_events[create_id(ev.uid, ev.begin, ev.end)] = ev
 
     logger.debug('> Collected {:d} iCal events'.format(len(ical_events)))
-
+   
     # retrieve the Google Calendar object itself
-    gcal_cal = service.calendars().get(calendarId=config['CALENDAR_ID']).execute()
+    gcal_cal = service.calendars().get(calendarId=feed['destination']).execute()
 
     logger.info('> Processing Google Calendar events...')
     gcal_event_ids = [ev['id'] for ev in gcal_events]
@@ -252,8 +272,11 @@ if __name__ == '__main__':
             # your calendar, selecting "View bin" and then clicking "Empty bin 
             # now" to completely delete these events.
             try:
+                # already marked as deleted, so it's in the "trash" or "bin"
+                if gcal_event['status'] == 'cancelled': continue
+
                 logger.info(u'> Deleting event "{}" from Google Calendar...'.format(gcal_event.get('summary', '<unnamed event>')))
-                service.events().delete(calendarId=config['CALENDAR_ID'], eventId=eid).execute()
+                service.events().delete(calendarId=feed['destination'], eventId=eid).execute()
                 time.sleep(config['API_SLEEP_TIME'])
             except googleapiclient.errors.HttpError:
                 pass # event already marked as deleted
@@ -312,14 +335,14 @@ if __name__ == '__main__':
                 if config['GRENOBLE_INP']:
                     url_feed=config['GRENOBLE_INP_SRC']
                 else:
-                    if config['FILES']:
+                    if feed['files']:
                         url_feed = 'https://events.from.ics.files.com' 
                     else:
-                        url_feed = config['ICAL_FEED']
+                        url_feed = feed['source']
                 gcal_event['source'] = {'title': 'Imported from ical_to_gcal_sync.py', 'url': url_feed}
                 gcal_event['location'] = ical_event.location
 
-                service.events().update(calendarId=config['CALENDAR_ID'], eventId=eid, body=gcal_event).execute()
+                service.events().update(calendarId=feed['destination'], eventId=eid, body=gcal_event).execute()
                 time.sleep(config['API_SLEEP_TIME'])
             else:
                 logger.info(u'> skipping event "{}" no changes: {}'.format(log_name, ", ".join(changes)))
@@ -331,18 +354,18 @@ if __name__ == '__main__':
             gcal_event = {}
             gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
-            gcal_event['description'] = '%s (Imported from mycal.py)' % ical_event.description
             gcal_event['description'] = ical_event.description
             if config['GRENOBLE_INP']:
                 url_feed=config['GRENOBLE_INP_SRC']
             else: 
-                if config['FILES']:
+                if feed['files']:
                     url_feed = 'https://events.from.ics.files.com'
                 else:
-                    url_feed = config['ICAL_FEED']
+                    url_feed = feed['source']
             gcal_event['source'] = {'title': 'Imported from ical_to_gcal_sync.py', 'url': url_feed}
 
             gcal_event['location'] = ical_event.location
+
 
             # check if no time specified in iCal, treat as all day event if so
             delta = ical_event.end - ical_event.begin
@@ -357,19 +380,18 @@ if __name__ == '__main__':
                 logger.info(u'iCal event {} to be added at {}'.format(ical_event.name, ical_event.begin))
                 if ical_event.end is not None:
                     gcal_event['end'] = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
-            logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['begin']))
+            logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['start']))
 
             try:
                 time.sleep(config['API_SLEEP_TIME'])
-                service.events().insert(calendarId=config['CALENDAR_ID'], body=gcal_event).execute()
-            except:
+                service.events().insert(calendarId=feed['destination'], body=gcal_event).execute()
+            except Exception:
                 time.sleep(config['API_SLEEP_TIME'])
                 try:
-                    service.events().update(calendarId=config['CALENDAR_ID'], eventId=gcal_event['id'], body=gcal_event).execute()
+                    service.events().update(calendarId=feed['destination'], eventId=gcal_event['id'], body=gcal_event).execute()
                 except Exception as ex:
                     # print("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
                     logger.info("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
                     logger.error("Error updating: %s (%s)" % ( gcal_event['id'], ex ) )
 
-
-                
+        logger.info('> Processing of source %s completed' % feed['source'])
