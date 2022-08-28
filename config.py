@@ -64,3 +64,9 @@ GCAL_DAYS_TO_SYNC = 29
 # a rolling number of days historical calendar entries from Google Calendar as the script
 # runs
 PAST_DAYS_TO_SYNC = 0
+
+# Restore deleted events
+# If this is set to True, then events that have been deleted from the Google Calendar
+# will be restored by this script - otherwise they will be left deleted, but will
+# be updated - just Google won't show them
+RESTORE_DELETED_EVENTS = True

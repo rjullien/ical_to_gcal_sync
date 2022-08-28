@@ -34,12 +34,11 @@ from dateutil.tz import gettz
 from datetime import datetime, timezone, timedelta
 
 from auth import auth_with_calendar_api
-#from config import ICAL_FEED, FILES, CALENDAR_ID, API_SLEEP_TIME, ICAL_DAYS_TO_SYNC, LOGFILE, GCAL_DAYS_TO_SYNC, GRENOBLE_INP, GRENOBLE_INP_SRC
 
 from pathlib import Path
 config ={}
 config_path=os.environ.get('CONFIG_PATH','config.py')
-print (config_path)
+
 exec(Path(config_path).read_text(), config)
 
 from phelma_calendar.phelma_calendar import get_phelma_calendar
@@ -85,12 +84,11 @@ def get_current_events_from_files():
 def get_current_events(feed):
     """Retrieves data from iCal iCal feed and returns an ics.Calendar object 
     containing the parsed data.
-
     Returns the parsed Calendar object or None if an error occurs.
     """
 
     events_end = datetime.now()
-    if config.get('ICAL_DAYS_TO_SYNC',0) == 0:
+    if config.get('ICAL_DAYS_TO_SYNC', 0) == 0:
         # default to 1 year ahead
         events_end += DEFAULT_TIMEDELTA
     else:
@@ -100,10 +98,10 @@ def get_current_events(feed):
     try:
         if config['FILES']:
             logger.info('> Retrieving events from local folder')
-            cal = events(file=feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0)), end=events_end)
+            cal = events(file=feed, end=events_end)
         else:
             logger.info('> Retrieving events from iCal feed')
-            cal = events(feed, end=events_end)
+            cal = events(file=feed, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC',0)), end=events_end)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
         return None
@@ -141,7 +139,7 @@ def get_gcal_events(service, from_time, to_time):
     # otherwise keep calling the method, passing back the nextPageToken each time
     while 'nextPageToken' in eventsResult:
         token = eventsResult['nextPageToken']
-        eventsResult = service.events().list(config['CALENDAR_ID'], 
+        eventsResult = service.events().list(calendarId=config['CALENDAR_ID'], 
                                              timeMin=from_time, 
                                              timeMax=to_time,
                                              pageToken=token, 
@@ -281,15 +279,21 @@ if __name__ == '__main__':
             titles_differ = gcal_name != ical_event.name
             locs_differ = gcal_has_location != ical_has_location and gcal_event.get('location') != ical_event.location
             descs_differ = gcal_has_description != ical_has_description and (gcal_event.get('description') != ical_event.description)
-
+            
+            needs_undelete = config.get('RESTORE_DELETED_EVENTS', False) and gcal_event['status'] == 'cancelled'
+            
             changes = []
             if times_differ: changes.append("begin/end times")
             if titles_differ: changes.append("name")
             if locs_differ: changes.append("locations")
             if descs_differ: changes.append("descriptions")
+            if needs_undelete: changes.append("undeleted")
 
-            if times_differ or titles_differ or locs_differ or descs_differ:   
-                logger.info(u'> Updating event "{}" due to date/time change...'.format(log_name))
+            # check if the iCal event has a different: start/end time, name, location,
+            # or description, and if so sync the changes to the GCal event
+            if needs_undelete or times_differ or titles_differ or locs_differ or descs_differ:  
+                print('updating due to change') 
+                logger.info(u'> Updating event "{}" due to changes: {}'.format(log_name, ", ".join(changes)))
                 delta = ical_event.end - ical_event.begin
                 # all-day events handled slightly differently
                 # TODO multi-day events?
@@ -302,6 +306,8 @@ if __name__ == '__main__':
                         gcal_event['end']   = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
 
                 logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['start']))
+                # if the event was deleted, the status will be 'cancelled' - this restores it
+                gcal_event['status'] = 'confirmed'
 
                 gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
@@ -318,6 +324,8 @@ if __name__ == '__main__':
 
                 service.events().update(calendarId=config['CALENDAR_ID'], eventId=eid, body=gcal_event).execute()
                 time.sleep(config['API_SLEEP_TIME'])
+            else:
+                logger.info(u'> skipping event "{}" no changes: {}'.format(log_name, ", ".join(changes)))
 
     # now add any iCal events not already in the Google Calendar 
     logger.info('> Processing iCal events...')
@@ -326,7 +334,7 @@ if __name__ == '__main__':
             gcal_event = {}
             gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
-            gcal_event['description'] = ical_event.description
+            gcal_event['description'] = '%s (Imported from mycal.py)' % ical_event.description
             gcal_event['location'] = ical_event.location
 
             # check if no time specified in iCal, treat as all day event if so
@@ -342,6 +350,7 @@ if __name__ == '__main__':
                 logger.info(u'iCal event {} to be added at {}'.format(ical_event.name, ical_event.begin))
                 if ical_event.end is not None:
                     gcal_event['end'] = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
+            logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['begin']))
 
             try:
                 time.sleep(config['API_SLEEP_TIME'])
