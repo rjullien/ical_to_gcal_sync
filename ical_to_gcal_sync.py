@@ -1,4 +1,22 @@
-# retrofit PR kialio committed on 29 Sep 2020 
+# Behind a few PR, TBD:
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/af0e2b647b1d5fd71e53944ca5b0b4155f53c42e
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/b8a8bc07277b6ea51bf37c769b980b7656ee6366
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/9cd3a702d3695a2bb15cdb701687d6c2b86569a8
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/0b03cb97ee141fde083d01794bb772a35cec8dad
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/5a22eb334d0f310883d7abcc830ac9070fd4bd38
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/a3b219e3d923d3112adb98ad2bc9d912a5f78866
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/bfecd40ce20358bad170f396eb9c87a056bfe614
+#  Merged to: https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/e1e001c96e9607ad5a0e137ffa274aa112818bd4
+
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/745eb735a39f01ca2d54abec4c5052c6c25e2ab2
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/8a7a9b4786722c0f64e55d503a1534f4b3d09a6a
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/22cdb78da987c5604d5ef622fe4421f9974a092f
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/ea6955886532a888f22f51e104d3434d8ae4ad82
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/1f9ce88f10f8cc9d34b2253499f661a680b33541
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/d94fa009145182fe3fe75721efda2acd17bb19f8
+# https://github.com/rjullien/edt_to_gcal_sync_grenoble_inp/commit/855cf908c0de6e2f41a724783bb23f2a01d718cc
+
+
 from __future__ import print_function
 
 import logging
@@ -270,7 +288,7 @@ if __name__ == '__main__':
 
                 gcal_event['summary'] = ical_event.name
                 gcal_event['description'] = ical_event.description
-                
+
                 if GRENOBLE_INP:
                     url_feed=GRENOBLE_INP_SRC
                 else:
