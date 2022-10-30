@@ -99,3 +99,5 @@ Config/configArthur.py
 Config/configAlex.py
 .DS_Store
 ical_to_gcal_sync.pckl
+rpi0/*
+rpi0Old/*

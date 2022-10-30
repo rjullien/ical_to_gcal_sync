@@ -27,7 +27,7 @@ SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'ical_to_gcal_sync_client_secret.json'
 
 # Location to store API credentials
-CREDENTIAL_PATH = 'ical_to_gcal_sync.pckl'
+CREDENTIAL_PATH = 'ical_to_gcal_sync.json'
 
 # Application name for the Google Calendar API
 APPLICATION_NAME = 'Phelma calendar'
@@ -70,3 +70,19 @@ PAST_DAYS_TO_SYNC = 0
 # will be restored by this script - otherwise they will be left deleted, but will
 # be updated - just Google won't show them
 RESTORE_DELETED_EVENTS = True
+
+# Sometimes you can encounter an annoying situation where events have been fully deleted
+# (by manually emptying the "Bin" for the calendar), but attempting to add new events with
+# the same UIDs will continue to fail. Inserts will produce a 409 "already exists" error,
+# and updtes will produce a 403 "Forbidden" error. Probably because the events are still
+# stored somewhere even though they are no longer visible to the API or through the web
+# interface. 
+#
+# If you run into this situation and don't want to create a fresh calendar, you can try 
+# setting this value to something other than an empty string. It will be used as a prefix
+# for new event UIDs, so changing it from the default will prevent the same IDs from being
+# reused and allow them to be inserted as normal.
+#
+# NOTE: Characters allowed in the ID are those used in base32hex encoding, i.e. lowercase 
+# letters a-v and digits 0-9, see section 3.1.2 in RFC2938
+EVENT_ID_PREFIX = ''

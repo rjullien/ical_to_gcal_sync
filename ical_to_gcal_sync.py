@@ -34,7 +34,7 @@ exec(Path(config_path).read_text(), config)
 from phelma_calendar.phelma_calendar import get_phelma_calendar
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 if config.get('LOGFILE', None):
     handler = logging.FileHandler(filename=config['LOGFILE'], mode='a')
 else:
@@ -169,7 +169,7 @@ def get_gcal_datetime(py_datetime, gcal_timezone):
 def get_gcal_date(py_datetime):
     return {u'date': py_datetime.strftime('%Y-%m-%d')}
 
-def create_id(uid, begintime, endtime):
+def create_id(uid, begintime, endtime, prefix=''):
     """ Converts ical UUID, begin and endtime to a valid Gcal ID
 
     Characters allowed in the ID are those used in base32hex encoding, i.e. lowercase letters a-v and digits 0-9, see section 3.1.2 in RFC2938
@@ -180,8 +180,7 @@ def create_id(uid, begintime, endtime):
         ID
     """
     allowed_chars = string.ascii_lowercase[:22] + string.digits
-    return re.sub('[^{}]'.format(allowed_chars), '', uid.lower()) + str(arrow.get(begintime).timestamp) + str(arrow.get(endtime).timestamp)
-
+    return prefix + re.sub('[^{}]'.format(allowed_chars), '', uid.lower()) + str(arrow.get(begintime).int_timestamp) + str(arrow.get(endtime).int_timestamp)
 if __name__ == '__main__':
     mandatory_configs = ['CREDENTIAL_PATH', 'ICAL_FEEDS', 'APPLICATION_NAME']
     for mandatory in mandatory_configs:
@@ -246,7 +245,7 @@ if __name__ == '__main__':
             except Exception as ex:
                 logger.error("Error processing entry (%s) - leaving as-is" % str(ev))
 
-        ical_events[create_id(ev.uid, ev.begin, ev.end)] = ev
+        ical_events[create_id(ev.uid, ev.begin, ev.end, config.get('EVENT_ID_PREFIX', ''))] = ev
 
     logger.debug('> Collected {:d} iCal events'.format(len(ical_events)))
    
@@ -297,7 +296,12 @@ if __name__ == '__main__':
 
             times_differ = gcal_begin != ical_event.begin or gcal_end != ical_event.end
             titles_differ = gcal_name != ical_event.name
+
             locs_differ = gcal_has_location != ical_has_location and gcal_event.get('location') != ical_event.location
+            # test if locs_differ:
+            #print("gcal_has_location: " +  gcal_has_location +" -- " + ical_has_location )
+            #print (locs_differ)
+
             descs_differ = gcal_has_description != ical_has_description and (gcal_event.get('description') != ical_event.description)
             
             needs_undelete = config.get('RESTORE_DELETED_EVENTS', False) and gcal_event['status'] == 'cancelled'
