@@ -20,7 +20,6 @@ from pathlib import Path
 
 config ={}
 config_path=os.environ.get('CONFIG_PATH','configPhelma.py')
-CONFIG_PATH='/home/pi/PhelmaEdt/edt_to_gcal_sync_grenoble_inp-0.2/configAlex.py'
 if config_path != 'configPhelma.py':
     # replace substring in config_path named 'config*' with the 'phelma_calendar/configPhelma*'
     config_path = config_path.replace('config','phelma_calendar/configPhelma')
