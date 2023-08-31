@@ -152,6 +152,7 @@ def get_gcal_events(calendar_id, service, from_time, to_time):
         logger.debug('> Found {:d} events on new page, {:d} total'.format(len(newevents), len(events)))
     
     logger.info('> Found {:d} upcoming events in Google Calendar (multi page)'.format(len(events)))
+    
     return events
 
 def delete_all_events(service):
@@ -297,10 +298,14 @@ if __name__ == '__main__':
             times_differ = gcal_begin != ical_event.begin or gcal_end != ical_event.end
             titles_differ = gcal_name != ical_event.name
 
-            locs_differ = gcal_has_location != ical_has_location and gcal_event.get('location') != ical_event.location
+            #locs_differ = gcal_has_location != ical_has_location and gcal_event.get('location') != ical_event.location
+
+            locs_differ = ((gcal_has_location and ical_has_location) and gcal_event.get('location') != ical_event.location) or (gcal_has_location and not ical_has_location) or (not gcal_has_location and ical_has_location)
+
             # test if locs_differ:
-            #print("gcal_has_location: " +  gcal_has_location +" -- " + ical_has_location )
-            #print (locs_differ)
+            # trace if location is different
+            if locs_differ:
+                print("gcal_has_location: " + str(gcal_has_location) + " -- " + str(ical_has_location) + "--"  + str(gcal_event.get('location')) + " -- " + str(ical_event.location))
 
             descs_differ = gcal_has_description != ical_has_description and (gcal_event.get('description') != ical_event.description)
             
@@ -316,7 +321,7 @@ if __name__ == '__main__':
             # check if the iCal event has a different: start/end time, name, location,
             # or description, and if so sync the changes to the GCal event
             if needs_undelete or times_differ or titles_differ or locs_differ or descs_differ:  
-                print('updating due to change') 
+                print('updating due to change undelete:'+ str(needs_undelete) + "times:" + str(times_differ) + "title:" + str(titles_differ) + "loc:" + str(locs_differ) + "desc:" + str(descs_differ))
                 logger.info(u'> Updating event "{}" due to changes: {}'.format(log_name, ", ".join(changes)))
                 delta = ical_event.end - ical_event.begin
                 # all-day events handled slightly differently
@@ -353,38 +358,8 @@ if __name__ == '__main__':
 
     # now add any iCal events not already in the Google Calendar 
     logger.info('> Processing iCal events...')
-
-    # Explain:
-
-    """ Here is the explanation for the code below:
-    1. I create a loop to get all the events from the ical file
-    2. I check if the event is already in the Google Calendar
-    3. If it is not, I create a new gcal_event dict
-    4. I add some information to this dict: summary, id, description, source, location
-    5. I check if the event is all day long or not (I check the number of days between the start and end time)
-    6. If the event is all day long, I add the start and end date to the gcal_event dict
-    7. If the event is not all day long, I add the start and end time to the gcal_event dict
-    8. I add the event to the Google Calendar
-    9. If the event already exists in the Google Calendar, I update it """
-
-    # Code does following:
-    """ The code above does the following:
-    1. Create a gcal_event dictionary
-    2. Assign the summary, id, description, and source to the dictionary
-    3. Assign the location to the dictionary
-    4. Check if no time is specified in iCal
-    5. If there is no time specified, then it is treated as an all day event
-    6. If there is a time specified, then it is treated as an event
-    7. Add the event to gcal_event
-    8. Print out the event that is being added
-    9. Try to add the event to the calendar
-    10. If the event is not added, then try to update the event
-    11. If the event is still not added, then print out the event that was not added
-    12. If there is an error updating the event, then print out the error message """
-
-    
-
     for ical_id, ical_event in ical_events.items():
+        if ical_id not in gcal_event_ids:
             gcal_event = {}
             gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
@@ -415,8 +390,6 @@ if __name__ == '__main__':
                 if ical_event.end is not None:
                     gcal_event['end'] = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
             logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['start']))
-
-            
 
             try:
                 time.sleep(config['API_SLEEP_TIME'])
