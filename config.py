@@ -3,22 +3,26 @@ from phelma_calendar import configPhelma as cfg
 
 # The iCal feed URL for the events that should be synced to the Google Calendar.
 # Note that the syncing is one-way only.
-# ICAL_FEED = 'Not used, replaced by phelma calendar if GRENOBLE_INP=True'
-ICAL_FEED=cfg.ICAL_FEED
+ICAL_FEEDS=[
+    # ENAC
+    {'source': 'path to .ics file in local', 'destination': 'xxx @group.calendar.google.com', 'files': True}
+    #INP
+    #{'source': cfg.ICAL_FEED, 'destination': 'zzz@group.calendar.google.com', 'files': False}
+    ]
 # Option to remove items from the calendar, exemple calendar contains options you are not registered for
 SET_TO_REMOVE=cfg.SET_TO_REMOVE
 
-# If FILES is True then ICAL_FEED is the path to a folder full of ics files.
-FILES = False
-
 # If GRENOBLE_INP is True then the ical feed is the one for Grenoble INP.
-GRENOBLE_INP=True
+GRENOBLE_INP=False
 GRENOBLE_INP_SRC='https://edt.grenoble-inp.fr'
+# Authentication information for the iCalendar feed
+# If the feed does not require authentication or if FILES is true, it should be left to None
+ICAL_FEED_USER = None
+ICAL_FEED_PASS = None
 
-# the ID of the calendar to use for iCal events, should be of the form
-# 'ID@group.calendar.google.com', check the calendar settings page to find it.
-# (can also be 'primary' to use the default calendar)
-# CALENDAR_ID = 'primary'
+# If the iCalendar server is using a self signed ssl certificate, certificate checking must be disabled.
+# If unsure left it to True
+ICAL_FEED_VERIFY_SSL_CERT = True
 
 # must use the OAuth scope that allows write access
 SCOPES = 'https://www.googleapis.com/auth/calendar'
@@ -71,6 +75,19 @@ PAST_DAYS_TO_SYNC = 0
 # be updated - just Google won't show them
 RESTORE_DELETED_EVENTS = True
 
+# function to modify events coming from the ical source before they get compared
+# to the Google Calendar entries and inserted/deleted
+#
+# this function should modify the events in-place and return either True (keep) or
+# False (delete/skip) the event from the Calendar. If this returns False on an event
+# that is already in the Google Calendar, the event will be deleted from the Google
+# Calendar
+import icalevents
+def EVENT_PREPROCESSOR(ev: icalevents.icalparser.Event) -> bool:
+    # include all entries by default
+    # see README.md for examples of rules that make changes/skip
+    return True 
+
 # Sometimes you can encounter an annoying situation where events have been fully deleted
 # (by manually emptying the "Bin" for the calendar), but attempting to add new events with
 # the same UIDs will continue to fail. Inserts will produce a 409 "already exists" error,
@@ -86,3 +103,4 @@ RESTORE_DELETED_EVENTS = True
 # NOTE: Characters allowed in the ID are those used in base32hex encoding, i.e. lowercase 
 # letters a-v and digits 0-9, see section 3.1.2 in RFC2938
 EVENT_ID_PREFIX = ''
+
