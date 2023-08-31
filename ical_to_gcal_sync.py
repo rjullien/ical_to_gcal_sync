@@ -353,8 +353,38 @@ if __name__ == '__main__':
 
     # now add any iCal events not already in the Google Calendar 
     logger.info('> Processing iCal events...')
+
+    # Explain:
+
+    """ Here is the explanation for the code below:
+    1. I create a loop to get all the events from the ical file
+    2. I check if the event is already in the Google Calendar
+    3. If it is not, I create a new gcal_event dict
+    4. I add some information to this dict: summary, id, description, source, location
+    5. I check if the event is all day long or not (I check the number of days between the start and end time)
+    6. If the event is all day long, I add the start and end date to the gcal_event dict
+    7. If the event is not all day long, I add the start and end time to the gcal_event dict
+    8. I add the event to the Google Calendar
+    9. If the event already exists in the Google Calendar, I update it """
+
+    # Code does following:
+    """ The code above does the following:
+    1. Create a gcal_event dictionary
+    2. Assign the summary, id, description, and source to the dictionary
+    3. Assign the location to the dictionary
+    4. Check if no time is specified in iCal
+    5. If there is no time specified, then it is treated as an all day event
+    6. If there is a time specified, then it is treated as an event
+    7. Add the event to gcal_event
+    8. Print out the event that is being added
+    9. Try to add the event to the calendar
+    10. If the event is not added, then try to update the event
+    11. If the event is still not added, then print out the event that was not added
+    12. If there is an error updating the event, then print out the error message """
+
+    
+
     for ical_id, ical_event in ical_events.items():
-        if ical_id not in gcal_event_ids:
             gcal_event = {}
             gcal_event['summary'] = ical_event.name
             gcal_event['id'] = ical_id
@@ -386,6 +416,8 @@ if __name__ == '__main__':
                     gcal_event['end'] = get_gcal_datetime(ical_event.end, gcal_cal['timeZone'])
             logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.name, gcal_event['start']))
 
+            
+
             try:
                 time.sleep(config['API_SLEEP_TIME'])
                 service.events().insert(calendarId=feed['destination'], body=gcal_event).execute()
@@ -398,4 +430,4 @@ if __name__ == '__main__':
                     logger.info("Item skiped - ERROR: "+ str(gcal_event['id']) + " body: " + str(gcal_event))
                     logger.error("Error updating: %s (%s)" % ( gcal_event['id'], ex ) )
 
-        logger.info('> Processing of source %s completed' % feed['source'])
+    logger.info('> Processing of source %s completed' % feed['source'])
