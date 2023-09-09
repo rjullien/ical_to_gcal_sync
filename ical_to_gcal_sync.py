@@ -251,7 +251,9 @@ if __name__ == '__main__':
          if feed['files']: # Used for ENAC
             if feed.get('school') == "ENAC":
                 logger.info('Retrieving events from enac website')
-                # get_enac_ics(feed['source'],config['ICAL_FEED_URL'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],config['GCAL_DAYS_TO_SYNC']/30) # get ics files from enac website
+                month_to_sync = int(config['GCAL_DAYS_TO_SYNC']) // 30
+                logger.info(f"get_enac_ics('{feed['source']}', '{feed['url']}', '{config['ICAL_FEED_USER']}', '{config['ICAL_FEED_PASS']}', {month_to_sync})")
+                # get_enac_ics(feed['source'],feed['ulr'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],month_to_sync) # get ics files from enac website
                 # Should use credentials to get ics files from config['ICAL_FEED_USER'] and config['ICAL_FEED_PASS'] and config['ICAL_FEED_URL'] and config['GCAL_DAYS_TO_SYNC']/30
                 # ICAL_FEED_USER = None
                 # ICAL_FEED_PASS = None
