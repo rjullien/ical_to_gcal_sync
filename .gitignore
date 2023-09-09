@@ -123,3 +123,6 @@ phelma_calendar/configPhelmaBapt.py
 phelma_calendar/configPhelmaRomane.py
 phelma_calendar/configPhelmaVictor.py
 README_old.txt
+secret.py
+config.py
+configV2.py
