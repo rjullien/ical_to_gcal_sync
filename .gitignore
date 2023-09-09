@@ -126,3 +126,4 @@ README_old.txt
 secret.py
 config.py
 configV2.py
+*.ics

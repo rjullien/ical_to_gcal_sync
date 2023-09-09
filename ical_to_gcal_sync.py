@@ -33,7 +33,33 @@ config = {}
 config_path=os.environ.get('CONFIG_PATH', 'config.py')
 exec(Path(config_path).read_text(), config)
 
-from phelma_calendar.phelma_calendar import get_phelma_calendar
+def get_phelma_calendar(url):
+    # Read grenoble-inp agenda
+    c = Calendar()
+    c = Calendar(requests.get(url).text)
+
+    # create the list of events to be filtered out from the one read previously
+    eventOut=c.events.copy()
+
+    # for each event, if it matches the filter out rule, remove them from the event list
+    for EventEdt in c.events:
+        for (f1,f2) in config['SET_TO_REMOVE']:
+            # test if EventEdt.name exits
+            if hasattr(EventEdt,'name'):
+                if(EventEdt.name.find(f1)!=-1): # If it matches a candidate topic
+                    if(EventEdt.description.find(f2)==-1): # Check if the group in the description <> from my group
+    #                     print("Remove "+EventEdt.name + " Desc: " + EventEdt.description)
+                        # try to remove the event from the list
+                        try:
+                            eventOut.remove(EventEdt)   # remove the event from the list
+                        except:
+                            print("Error: Cannot remove this Event: "+EventEdt.name+ " Desc: " + EventEdt.description)
+            else:
+                print("Error: No name for event: ")
+                print(EventEdt)
+                              
+    # print(str(eventOut))
+    return eventOut
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -250,10 +276,11 @@ if __name__ == '__main__':
     else:
          if feed['files']: # Used for ENAC
             if feed.get('school') == "ENAC":
+                from enac import get_enac_ics
                 logger.info('Retrieving events from enac website')
                 month_to_sync = int(config['GCAL_DAYS_TO_SYNC']) // 30
                 logger.info(f"get_enac_ics('{feed['download']}' ,'{feed['source']}', '{feed['url']}', '{config['ICAL_FEED_USER']}', '{config['ICAL_FEED_PASS']}', {month_to_sync})")
-                # get_enac_ics(feed['download'],feed['source'],feed['ulr'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],month_to_sync) # get ics files from enac website
+                get_enac_ics(feed['download'],feed['source'],feed['url'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],month_to_sync) # get ics files from enac website
                 # Should use credentials to get ics files from config['ICAL_FEED_USER'] and config['ICAL_FEED_PASS'] and config['ICAL_FEED_URL'] and config['GCAL_DAYS_TO_SYNC']/30
                 # ICAL_FEED_USER = None
                 # ICAL_FEED_PASS = None
