@@ -46,6 +46,38 @@ logger.addHandler(handler)
 
 DEFAULT_TIMEDELTA = timedelta(days=365)
 
+import fileinput
+import os
+
+def patch_ics_files(directory):
+    """
+    Patch all .ics files in the specified directory by replacing the X-WR-TIMEZONE property
+    with a standard timezone definition.
+    """
+    # Specify the replacement value for X-WR-TIMEZONE
+    replacement = """BEGIN:VTIMEZONE
+TZID:Europe/Paris
+BEGIN:STANDARD
+DTSTART:19710101T030000
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+END:STANDARD
+END:VTIMEZONE"""
+
+    # Loop over each file in the directory
+    for filename in os.listdir(directory):
+        # Check that the file has a .ics extension
+        if filename.endswith('.ics'):
+            # Open the file for in-place editing
+            with fileinput.FileInput(os.path.join(directory, filename), inplace=True) as file:
+                # Loop over each line in the file
+                for line in file:
+                    # Replace the X-WR-TIMEZONE property with the replacement value
+                    if line.startswith('X-WR-TIMEZONE:'):
+                        print(replacement)
+                    else:
+                        print(line, end='')
+
 def get_current_events_from_files(path):
     
     """Retrieves data from iCal files.  Assumes that the files are all 
@@ -217,6 +249,15 @@ if __name__ == '__main__':
         ical_cal = get_phelma_calendar(feed['source'])
     else:
          if feed['files']: # Used for ENAC
+            if feed.get('school') == "ENAC":
+                logger.info('Retrieving events from enac website')
+                # get_enac_ics(feed['source'],config['ICAL_FEED_URL'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],config['GCAL_DAYS_TO_SYNC']/30) # get ics files from enac website
+                # Should use credentials to get ics files from config['ICAL_FEED_USER'] and config['ICAL_FEED_PASS'] and config['ICAL_FEED_URL'] and config['GCAL_DAYS_TO_SYNC']/30
+                # ICAL_FEED_USER = None
+                # ICAL_FEED_PASS = None
+                logger.info('patch timezone of ics files')
+                patch_ics_files(feed['source']) # patch timezone of ics files
+
             logger.info('> Retrieving events from local folder')
             ical_cal = get_current_events_from_files(feed['source'])
          else:

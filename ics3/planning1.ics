@@ -1,0 +1,1372 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Paris
+BEGIN:STANDARD
+DTSTART:19710101T030000
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART:20230830T083000
+DTEND:20230830T100000
+DTSTAMP:20230830T100000
+UID:27976027
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Briefing Anglais et LV2  Anglais semestre 5 - Cours / Briefing Anglais et LV2  Briefing anglais et LV2 - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Briefing Anglais et LV2  Anglais semestre 5 / Briefing Anglais et LV2  Briefing anglais et LV2\n
+ - Intervenant : MC CHEYNE Alison\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230904T153000
+DTEND:20230904T173000
+DTSTAMP:20230904T173000
+UID:28046177
+SEQUENCE:1
+SUMMARY:  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Education Physique et Sportive\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230911T153000
+DTEND:20230911T173000
+DTSTAMP:20230911T173000
+UID:28046356
+SEQUENCE:1
+SUMMARY:  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Education Physique et Sportive\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230918T153000
+DTEND:20230918T173000
+DTSTAMP:20230918T173000
+UID:28046371
+SEQUENCE:1
+SUMMARY:  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Education Physique et Sportive\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230925T153000
+DTEND:20230925T173000
+DTSTAMP:20230925T173000
+UID:28046402
+SEQUENCE:1
+SUMMARY:  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Education Physique et Sportive\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231002T153000
+DTEND:20231002T173000
+DTSTAMP:20231002T173000
+UID:28046417
+SEQUENCE:1
+SUMMARY:  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Education Physique et Sportive\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T090000
+DTEND:20230829T110000
+DTSTAMP:20230829T110000
+UID:28453309
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Accueil et appel  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Accueil et appel  Accueil\n
+ - Intervenant : ESCHER Anne-Christine / GIZARDIN Muriel\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T111500
+DTEND:20230829T120000
+DTSTAMP:20230829T120000
+UID:28453335
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Présentation bibliothèque  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Présentation bibliothèque  Accueil\n
+ - Intervenant : HERNANDEZ Karine / ILLAC Virginie\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T110000
+DTEND:20230829T111500
+DTSTAMP:20230829T111500
+UID:28453361
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Présentation APP0  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Présentation APP0  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T150000
+DTEND:20230829T153000
+DTSTAMP:20230829T153000
+UID:28453473
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Présentation  Briefing sport - Cours / Présentation  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Présentation  Briefing sport / Présentation  Education Physique et Sportive\n
+ - Intervenant : PLANAS Jean-Michel / QUENARD Yannick\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T160000
+DTEND:20230829T170000
+DTSTAMP:20230829T170000
+UID:28453535
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Accueil / Aspects Administratifs  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Accueil / Aspects Administratifs  Accueil\n
+ - Intervenant : SALIBER Marie-Claude / ZAVAN Véronique\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230830T101500
+DTEND:20230830T114500
+DTSTAMP:20230830T114500
+UID:28453566
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Accueil Pédagogique  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Accueil Pédagogique  Accueil\n
+ - Intervenant : GIZARDIN Muriel / GONON Mathy\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230830T131500
+DTEND:20230830T153000
+DTSTAMP:20230830T153000
+UID:28454028
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Séance Aller  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Séance Aller  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230830T154500
+DTEND:20230830T190000
+DTSTAMP:20230830T190000
+UID:28454186
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Autonomie APP0  Atelier "approche par projet et par problème" (APP0) - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : Autonomie APP0  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230831T080000
+DTEND:20230831T100000
+DTSTAMP:20230831T100000
+UID:28454201
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Autonomie APP0  Atelier "approche par projet et par problème" (APP0) - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : Autonomie APP0  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230831T101500
+DTEND:20230831T123000
+DTSTAMP:20230831T123000
+UID:28454213
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Séance Retour  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Séance Retour  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230831T141500
+DTEND:20230831T190000
+DTSTAMP:20230831T190000
+UID:28454361
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Autonomie APP0  Atelier "approche par projet et par problème" (APP0) - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : Autonomie APP0  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T083000
+DTEND:20230901T110000
+DTSTAMP:20230901T110000
+UID:28454398
+SEQUENCE:1
+LOCATION:C002 / C004 / C006 / C008\n
+SUMMARY:Évaluation  Présentations  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Évaluation  Présentations  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T111500
+DTEND:20230901T114500
+DTSTAMP:20230901T114500
+UID:28454438
+SEQUENCE:1
+LOCATION:BIBLIOTHEQUE\n
+SUMMARY:Évaluation méthodologique  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Évaluation méthodologique  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T120000
+DTEND:20230901T121500
+DTSTAMP:20230901T121500
+UID:28454493
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Annonce des résultats  Atelier "approche par projet et par problème" (APP0) - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Annonce des résultats  Atelier "approche par projet et par problème" (APP0)\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T134500
+DTEND:20230901T154500
+DTSTAMP:20230901T154500
+UID:28457602
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Navigation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe / JOFFRE Bertrand\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230904T080000
+DTEND:20230904T100000
+DTSTAMP:20230904T100000
+UID:28457676
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Réunions de promotion - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Réunions de promotion\n
+ - Intervenant : ESCHER Anne-Christine\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230907T133000
+DTEND:20230907T154000
+DTSTAMP:20230907T154000
+UID:28458224
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Forum des associations  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Forum des associations  Accueil\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T160000
+DTEND:20230901T161500
+DTSTAMP:20230901T161500
+UID:28497459
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Passeport Sécurité des Systèmes Informatiques - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant : PARIS Thierry\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230901T161500
+DTEND:20230901T180000
+DTSTAMP:20230901T180000
+UID:28497555
+SEQUENCE:1
+LOCATION:D201 / D202 / D203 / D204 / D205 / D206\n
+SUMMARY:  Passeport Sécurité des Systèmes Informatiques - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant : PARIS Thierry\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230904T131500
+DTEND:20230904T151500
+DTSTAMP:20230904T151500
+UID:28498378
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Navigation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230906T131500
+DTEND:20230906T151500
+DTSTAMP:20230906T151500
+UID:28498410
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Navigation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230905T131500
+DTEND:20230905T151500
+DTSTAMP:20230905T151500
+UID:28498458
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : PETEILH Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230908T131500
+DTEND:20230908T151500
+DTSTAMP:20230908T151500
+UID:28498475
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : PETEILH Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230904T101500
+DTEND:20230904T121500
+DTSTAMP:20230904T121500
+UID:28586209
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Conférence inaugurale modélisation mathématique du réel   - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Conférence inaugurale modélisation mathématique du réel  \n
+ - Intervenant : D'ESTAMPES Ludovic\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230912T080000
+DTEND:20230912T100000
+DTSTAMP:20230912T100000
+UID:28586442
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / DEVIN Sandra / JOLLY Michaël\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230912T101500
+DTEND:20230912T121500
+DTSTAMP:20230912T121500
+UID:28586493
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / DEVIN Sandra / JOLLY Michaël\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230926T080000
+DTEND:20230926T100000
+DTSTAMP:20230926T100000
+UID:28588627
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / JOLLY Michaël / PARIS Thierry\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231003T080000
+DTEND:20231003T100000
+DTSTAMP:20231003T100000
+UID:28588677
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / DEVIN Sandra / JOLLY Michaël\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230926T101500
+DTEND:20230926T121500
+DTSTAMP:20230926T121500
+UID:28588820
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / JOLLY Michaël / PARIS Thierry\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231003T101500
+DTEND:20231003T121500
+DTSTAMP:20231003T121500
+UID:28588859
+SEQUENCE:1
+LOCATION:C120 / D103\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : BUISAN Guilhem / CALAS Guy / DEVIN Sandra / JOLLY Michaël\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230905T153000
+DTEND:20230905T163000
+DTSTAMP:20230905T163000
+UID:28593417
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : VARET Antoine\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230908T153000
+DTEND:20230908T173000
+DTSTAMP:20230908T173000
+UID:28593433
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : VARET Antoine\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230919T153000
+DTEND:20230919T173000
+DTSTAMP:20230919T173000
+UID:28593449
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Architecture et systèmes d'exploitation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Architecture et systèmes d'exploitation\n
+ - Intervenant : VARET Antoine\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230905T163000
+DTEND:20230905T173000
+DTSTAMP:20230905T173000
+UID:28653239
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Introduction à Unix et aux Shells - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction à Unix et aux Shells\n
+ - Intervenant : COUDARCHER Rémi\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230906T153000
+DTEND:20230906T163000
+DTSTAMP:20230906T163000
+UID:28660748
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Briefing  Mécanique des solides - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Briefing  Mécanique des solides\n
+ - Intervenant : MONROLIN Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230906T163000
+DTEND:20230906T173000
+DTSTAMP:20230906T173000
+UID:28660771
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Remise à niveau  Mécanique des solides - Tutoré\n
+DESCRIPTION:
+ - Matière - Cours : Remise à niveau  Mécanique des solides\n
+ - Intervenant : MONROLIN Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230906T101500
+DTEND:20230906T121500
+DTSTAMP:20230906T121500
+UID:28662126
+SEQUENCE:1
+LOCATION:E1_002\n
+SUMMARY:  Introduction à Unix et aux Shells - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction à Unix et aux Shells\n
+ - Intervenant : ANGELI Jean-Marc / RODRIGUEZ Sylvain\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230915T131500
+DTEND:20230915T151500
+DTSTAMP:20230915T151500
+UID:28662515
+SEQUENCE:1
+LOCATION:D201\n
+SUMMARY:  Introduction à Unix et aux Shells - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction à Unix et aux Shells\n
+ - Intervenant : ANGELI Jean-Marc / RODRIGUEZ Sylvain\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230927T101500
+DTEND:20230927T121500
+DTSTAMP:20230927T121500
+UID:28689946
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Programmation de Systèmes interactifs  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Programmation de Systèmes interactifs  Programmation et algorithmique\n
+ - Intervenant : BROCK Anke / SAPORITO Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230929T080000
+DTEND:20230929T100000
+DTSTAMP:20230929T100000
+UID:28689976
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Programmation de Systèmes interactifs  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Programmation de Systèmes interactifs  Programmation et algorithmique\n
+ - Intervenant : BROCK Anke / SAPORITO Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231004T101500
+DTEND:20231004T121500
+DTSTAMP:20231004T121500
+UID:28690064
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Programmation de Systèmes interactifs  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Programmation de Systèmes interactifs  Programmation et algorithmique\n
+ - Intervenant : BROCK Anke / SAPORITO Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231006T101500
+DTEND:20231006T121500
+DTSTAMP:20231006T121500
+UID:28690297
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Programmation de Systèmes interactifs  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Programmation de Systèmes interactifs  Programmation et algorithmique\n
+ - Intervenant : BROCK Anke / SAPORITO Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231006T134500
+DTEND:20231006T144500
+DTSTAMP:20231006T144500
+UID:28731413
+SEQUENCE:1
+LOCATION:D202\n
+SUMMARY:Évaluation  Passeport Sécurité des Systèmes Informatiques - EVALUATION\n
+DESCRIPTION:
+ - Matière - Cours : Évaluation  Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230905T101500
+DTEND:20230905T114500
+DTSTAMP:20230905T114500
+UID:28736088
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Test de niveau  Anglais semestre 5 - EVALUATION\n
+DESCRIPTION:
+ - Matière - Cours : Test de niveau  Anglais semestre 5\n
+ - Intervenant : RODRIGUEZ MOROS José\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230926T153000
+DTEND:20230926T173000
+DTSTAMP:20230926T173000
+UID:28810299
+SEQUENCE:1
+LOCATION:D201 / D202 / D203 / D204 / D205 / D206 / E1_002 / E1_004\n
+SUMMARY:TD noté  Programmation et algorithmique - EVALUATION\n
+DESCRIPTION:
+ - Matière - Cours : TD noté  Programmation et algorithmique\n
+ - Intervenant : ALLIGIER Richard / ALLIGNOL Cyril / AUBRY Sébastien / BARNIER Nicolas / CONVERSY Stéphane / GONDRAN Alexandre / GOTTELAND Jean-Baptiste / RIVIERE Thomas / VENGUT Jean-Marc\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230908T080000
+DTEND:20230908T100000
+DTSTAMP:20230908T100000
+UID:28812383
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230911T080000
+DTEND:20230911T100000
+DTSTAMP:20230911T100000
+UID:28812491
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien / GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230913T101500
+DTEND:20230913T121500
+DTSTAMP:20230913T121500
+UID:28812620
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230915T101500
+DTEND:20230915T121500
+DTSTAMP:20230915T121500
+UID:28812645
+SEQUENCE:1
+LOCATION:D203\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien / GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230915T153000
+DTEND:20230915T173000
+DTSTAMP:20230915T173000
+UID:28821765
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230918T101500
+DTEND:20230918T121500
+DTSTAMP:20230918T121500
+UID:28821987
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230919T101500
+DTEND:20230919T121500
+DTSTAMP:20230919T121500
+UID:28822150
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien / GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230920T101500
+DTEND:20230920T121500
+DTSTAMP:20230920T121500
+UID:28822340
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230922T101500
+DTEND:20230922T121500
+DTSTAMP:20230922T121500
+UID:28822400
+SEQUENCE:1
+LOCATION:D204\n
+SUMMARY:Eléments fondamentaux  Programmation et algorithmique - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours : Eléments fondamentaux  Programmation et algorithmique\n
+ - Intervenant : AUBRY Sébastien / GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230925T101500
+DTEND:20230925T121500
+DTSTAMP:20230925T121500
+UID:28822524
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Entrées/Sorties  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Entrées/Sorties  Programmation et algorithmique\n
+ - Intervenant : GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231002T101500
+DTEND:20231002T121500
+DTSTAMP:20231002T121500
+UID:28822759
+SEQUENCE:1
+LOCATION:D205\n
+SUMMARY:Entrées/Sorties  Programmation et algorithmique - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Entrées/Sorties  Programmation et algorithmique\n
+ - Intervenant : GONDRAN Alexandre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230911T131500
+DTEND:20230911T151500
+DTSTAMP:20230911T151500
+UID:28844130
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Navigation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230912T153000
+DTEND:20230912T173000
+DTSTAMP:20230912T173000
+UID:28844594
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Navigation - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230919T080000
+DTEND:20230919T100000
+DTSTAMP:20230919T100000
+UID:28844750
+SEQUENCE:1
+LOCATION:C008\n
+SUMMARY:  Navigation - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230921T143000
+DTEND:20230921T163000
+DTSTAMP:20230921T163000
+UID:28900799
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Prévention sur les conduites addictives  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Prévention sur les conduites addictives  Accueil\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230914T133000
+DTEND:20230914T163000
+DTSTAMP:20230914T163000
+UID:28910981
+SEQUENCE:1
+SUMMARY:Présentation du Bureau des Elèves  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Présentation du Bureau des Elèves  Accueil\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231003T131500
+DTEND:20231003T151500
+DTSTAMP:20231003T151500
+UID:29002219
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : PETEILH Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230928T080000
+DTEND:20230928T100000
+DTSTAMP:20230928T100000
+UID:29003984
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : PETEILH Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230913T131500
+DTEND:20230913T151500
+DTSTAMP:20230913T151500
+UID:29228073
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : CELTON Jean-Pierre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230920T153000
+DTEND:20230920T173000
+DTSTAMP:20230920T173000
+UID:29228089
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Quel avion pour quelle mission\n
+ - Intervenant : CELTON Jean-Pierre\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230907T111500
+DTEND:20230907T121500
+DTSTAMP:20230907T121500
+UID:29228176
+SEQUENCE:1
+SUMMARY:  Passeport Sécurité des Systèmes Informatiques - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours :   Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230907T101500
+DTEND:20230907T111500
+DTSTAMP:20230907T111500
+UID:29228228
+SEQUENCE:1
+SUMMARY:Remise à niveau  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : Remise à niveau  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230927T153000
+DTEND:20230927T163000
+DTSTAMP:20230927T163000
+UID:29239793
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Briefing  Mécanique des solides - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Briefing  Mécanique des solides\n
+ - Intervenant : MONROLIN Nicolas\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231002T131500
+DTEND:20231002T151500
+DTSTAMP:20231002T151500
+UID:29241622
+SEQUENCE:1
+LOCATION:EXABREGUET_1 / EXABREGUET_2 / EXABREGUET_3 / EXABREGUET_4 / EXABREGUET_5 / EXABREGUET_6 / EXABREGUET_7 / EXABREGUET_8\n
+SUMMARY:TD1  Mécanique des solides - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours : TD1  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230919T131500
+DTEND:20230919T151500
+DTSTAMP:20230919T151500
+UID:29243797
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Introduction au traitement du signal - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : MARTINEAU Anaïs\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230918T131500
+DTEND:20230918T151500
+DTSTAMP:20230918T151500
+UID:29245328
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Introduction au traitement du signal - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : MARTINEAU Anaïs\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230912T131500
+DTEND:20230912T151500
+DTSTAMP:20230912T151500
+UID:29246397
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Introduction au traitement du signal - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230922T130000
+DTEND:20230922T190000
+DTSTAMP:20230922T190000
+UID:29278874
+SEQUENCE:1
+SUMMARY:Weekend d'intégration   - Evénement impactant la scolarité\n
+DESCRIPTION:
+ - Matière - Cours : Weekend d'intégration  \n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231005T150000
+DTEND:20231005T183000
+DTSTAMP:20231005T183000
+UID:29292787
+SEQUENCE:1
+SUMMARY:Atelier Interculturel  Buddy Program   - Evénement impactant la scolarité\n
+DESCRIPTION:
+ - Matière - Cours : Atelier Interculturel  Buddy Program  \n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231003T153000
+DTEND:20231003T173000
+DTSTAMP:20231003T173000
+UID:29293531
+SEQUENCE:1
+LOCATION:C008\n
+SUMMARY:  Navigation - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Navigation\n
+ - Intervenant : BAUDRAND Philippe\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230914T080000
+DTEND:20230914T100000
+DTSTAMP:20230914T100000
+UID:29346505
+SEQUENCE:1
+SUMMARY:eLearning  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Quel avion pour quelle mission\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230913T153000
+DTEND:20230913T173000
+DTSTAMP:20230913T173000
+UID:29348290
+SEQUENCE:1
+SUMMARY:eLearning  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230928T133000
+DTEND:20230928T153000
+DTSTAMP:20230928T153000
+UID:29361820
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Forum DDRS   - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Forum DDRS  \n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230906T080000
+DTEND:20230906T100000
+DTSTAMP:20230906T100000
+UID:29379529
+SEQUENCE:1
+LOCATION:C007\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230908T101500
+DTEND:20230908T121500
+DTSTAMP:20230908T121500
+UID:29379635
+SEQUENCE:1
+LOCATION:C007\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230913T080000
+DTEND:20230913T100000
+DTSTAMP:20230913T100000
+UID:29379763
+SEQUENCE:1
+LOCATION:C013\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230918T080000
+DTEND:20230918T100000
+DTSTAMP:20230918T100000
+UID:29379813
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230922T080000
+DTEND:20230922T100000
+DTSTAMP:20230922T100000
+UID:29379948
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230925T080000
+DTEND:20230925T100000
+DTSTAMP:20230925T100000
+UID:29380080
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230925T131500
+DTEND:20230925T151500
+DTSTAMP:20230925T151500
+UID:29388896
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:  Introduction au traitement du signal - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : MARTINEAU Anaïs\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231004T153000
+DTEND:20231004T163000
+DTSTAMP:20231004T163000
+UID:29408085
+SEQUENCE:1
+SUMMARY:  Passeport Sécurité des Systèmes Informatiques - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours :   Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230927T163000
+DTEND:20230927T173000
+DTSTAMP:20230927T173000
+UID:29408158
+SEQUENCE:1
+SUMMARY:  Passeport Sécurité des Systèmes Informatiques - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours :   Passeport Sécurité des Systèmes Informatiques\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230921T080000
+DTEND:20230921T100000
+DTSTAMP:20230921T100000
+UID:29408209
+SEQUENCE:1
+SUMMARY:eLearning  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230929T153000
+DTEND:20230929T173000
+DTSTAMP:20230929T173000
+UID:29408254
+SEQUENCE:1
+SUMMARY:eLearning  Quel avion pour quelle mission - Cours\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Quel avion pour quelle mission\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230926T131500
+DTEND:20230926T151500
+DTSTAMP:20230926T151500
+UID:29408270
+SEQUENCE:1
+SUMMARY:eLearning  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230929T101500
+DTEND:20230929T121500
+DTSTAMP:20230929T121500
+UID:29408349
+SEQUENCE:1
+SUMMARY:eLearning  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230929T131500
+DTEND:20230929T151500
+DTSTAMP:20230929T151500
+UID:29408412
+SEQUENCE:1
+SUMMARY:eLearning  Introduction au traitement du signal - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Introduction au traitement du signal\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231004T131500
+DTEND:20231004T151500
+DTSTAMP:20231004T151500
+UID:29408575
+SEQUENCE:1
+SUMMARY:eLearning  Introduction au traitement du signal - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Introduction au traitement du signal\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231006T151500
+DTEND:20231006T171500
+DTSTAMP:20231006T171500
+UID:29408590
+SEQUENCE:1
+SUMMARY:eLearning  Mécanique des solides - Travail en autonomie\n
+DESCRIPTION:
+ - Matière - Cours : eLearning  Mécanique des solides\n
+ - Intervenant :  \n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230920T131500
+DTEND:20230920T151500
+DTSTAMP:20230920T151500
+UID:29432821
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Introduction au traitement du signal - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : KUHLER Lucille\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230927T131500
+DTEND:20230927T151500
+DTSTAMP:20230927T151500
+UID:29433431
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Introduction au traitement du signal - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : QUENNELLE Alice\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231005T080000
+DTEND:20231005T100000
+DTSTAMP:20231005T100000
+UID:29433605
+SEQUENCE:1
+LOCATION:C001\n
+SUMMARY:  Introduction au traitement du signal - Travaux dirigés\n
+DESCRIPTION:
+ - Matière - Cours :   Introduction au traitement du signal\n
+ - Intervenant : KUHLER Lucille\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231002T080000
+DTEND:20231002T100000
+DTSTAMP:20231002T100000
+UID:29571411
+SEQUENCE:1
+LOCATION:C007\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231006T080000
+DTEND:20231006T100000
+DTSTAMP:20231006T100000
+UID:29571435
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Variable complexe - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Variable complexe\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230905T080000
+DTEND:20230905T100000
+DTSTAMP:20230905T100000
+UID:29572132
+SEQUENCE:1
+LOCATION:C013\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230907T080000
+DTEND:20230907T100000
+DTSTAMP:20230907T100000
+UID:29572496
+SEQUENCE:1
+LOCATION:C013\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230915T080000
+DTEND:20230915T100000
+DTSTAMP:20230915T100000
+UID:29572588
+SEQUENCE:1
+LOCATION:C013\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230920T080000
+DTEND:20230920T100000
+DTSTAMP:20230920T100000
+UID:29572666
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230911T101500
+DTEND:20230911T121500
+DTSTAMP:20230911T121500
+UID:29572911
+SEQUENCE:1
+LOCATION:C013\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230927T080000
+DTEND:20230927T100000
+DTSTAMP:20230927T100000
+UID:29572934
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20231004T080000
+DTEND:20231004T100000
+DTSTAMP:20231004T100000
+UID:29572955
+SEQUENCE:1
+LOCATION:C005\n
+SUMMARY:  Théorie de la mesure - Cours\n
+DESCRIPTION:
+ - Matière - Cours :   Théorie de la mesure\n
+ - Intervenant : PUECHMOREL Stéphane\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230928T153000
+DTEND:20230928T163000
+DTSTAMP:20230928T163000
+UID:29674892
+SEQUENCE:1
+LOCATION:AMPHI_COSTES\n
+SUMMARY:Présentation de l'Engagement Citoyen  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Présentation de l'Engagement Citoyen  Accueil\n
+ - Intervenant : MARTIN Éric\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T153000
+DTEND:20230829T160000
+DTSTAMP:20230829T160000
+UID:29713060
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Présentation  Education Physique et Sportive - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Présentation  Education Physique et Sportive\n
+ - Intervenant : PLANAS Jean-Michel / QUENARD Yannick\n
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20230829T134500
+DTEND:20230829T145500
+DTSTAMP:20230829T145500
+UID:29713240
+SEQUENCE:1
+LOCATION:AMPHI_BELLONTE\n
+SUMMARY:Accueil / Aspects Administratifs  Accueil - Cours\n
+DESCRIPTION:
+ - Matière - Cours : Accueil / Aspects Administratifs  Accueil\n
+ - Intervenant : AUDOUZE Catherine\n
+END:VEVENT
+END:VCALENDAR
