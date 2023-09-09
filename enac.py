@@ -1,4 +1,6 @@
 def get_enac_ics(nombre_de_mois):
+    # get_enac_ics(download,source,ulr,user,pass,month_to_sync) # get ics files from enac website
+
     from config import ICAL_FEEDS, ICAL_FEED_USER, ICAL_FEED_PASS
     icsPath = ICAL_FEEDS[0]["source"] # icsPath to the ics file enac hardcoded to the first feed
     from selenium import webdriver
