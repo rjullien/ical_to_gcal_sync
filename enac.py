@@ -1,8 +1,4 @@
-def get_enac_ics(nombre_de_mois):
-    # get_enac_ics(download,source,ulr,user,pass,month_to_sync) # get ics files from enac website
-
-    from config import ICAL_FEEDS, ICAL_FEED_USER, ICAL_FEED_PASS
-    icsPath = ICAL_FEEDS[0]["source"] # icsPath to the ics file enac hardcoded to the first feed
+def get_enac_ics(downloadPath, icsPath, url, user, password, nombre_de_mois):
     from selenium import webdriver
     from selenium.webdriver.common.by import By
     from selenium.webdriver.common.keys import Keys
@@ -24,9 +20,9 @@ def get_enac_ics(nombre_de_mois):
     chrome_options = Options()
     chrome_options.add_argument('--headless=new')  # Run browser in headless mode
     driver = webdriver.Chrome(options=chrome_options)
-    driver.get(ICAL_FEEDS[0]["url"])
-    driver.find_element(By.ID, "username").send_keys(ICAL_FEED_USER)
-    driver.find_element(By.ID, "password").send_keys(ICAL_FEED_PASS)
+    driver.get(url)
+    driver.find_element(By.ID, "username").send_keys(user)
+    driver.find_element(By.ID, "password").send_keys(password)
     driver.find_element(By.XPATH, "//div[@class='ui-selectonemenu-trigger ui-state-default ui-corner-right']").click()
     sleep(0.5)
     driver.find_element(By.XPATH, "//li[@class='ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all ui-state-highlight']").click()
@@ -50,7 +46,6 @@ def get_enac_ics(nombre_de_mois):
     sleep(2)
 
     #cut paste the ics file
-    downloadPath = ICAL_FEEDS[0]["download"]
     if os.path.exists(downloadPath + "/planning.ics"):
         shutil.move(downloadPath + "/planning.ics", icsPath)
     else:
