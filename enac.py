@@ -3,6 +3,7 @@ def get_enac_ics(downloadPath, icsPath, url, user, password, nombre_de_mois):
     from selenium.webdriver.common.by import By
     from selenium.webdriver.common.keys import Keys
     from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.common.alert import Alert
     from time import sleep
     import shutil
     import os
