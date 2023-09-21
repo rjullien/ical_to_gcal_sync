@@ -17,6 +17,11 @@ import re
 import sys
 import os
 
+from ics import Calendar, Event
+import requests
+import os
+from pathlib import Path
+
 import googleapiclient
 import arrow
 from googleapiclient import errors
@@ -56,6 +61,33 @@ def get_phelma_calendar(url):
                             print("Error: Cannot remove this Event: "+EventEdt.name+ " Desc: " + EventEdt.description)
             else:
                 print("Error: No name for event: ")
+                print(EventEdt)
+                              
+    # print(str(eventOut))
+    return eventOut
+
+def filter_out_useless_items (eventIn):
+    # create the list of events to be filtered out from the one recived in input 
+    eventOut=eventIn.copy()
+
+    # for each event, if it matches the filter out rule, remove them from the event list
+    for EventEdt in eventIn:
+        for (f1,f2) in config['SET_TO_REMOVE']:
+            # test if EventEdt.summary exits
+            if hasattr(EventEdt,'summary'):
+                if(EventEdt.summary.find(f1)!=-1): # If it matches a candidate topic
+                    if(EventEdt.description.find(f2)==-1): # Check if the group in the description <> from my group
+                        logger.info("> Remove "+EventEdt.summary + " Desc: " + EventEdt.description)
+                        #print("Remove "+EventEdt.summary + " Desc: " + EventEdt.description)
+                        # try to remove the event from the list
+                        try:
+                            eventOut.remove(EventEdt)   # remove the event from the list
+                        except:
+                            logger.error("> Error: Cannot remove this Event: "+EventEdt.summary + " Desc: " + EventEdt.description)
+                            #print("Error: Cannot remove this Event: "+EventEdt.summary+ " Desc: " + EventEdt.description)
+            else:
+                #logger.error(">Error:  No summary for event:"+EventEdt)
+                print("Error: No summary for event: ")
                 print(EventEdt)
                               
     # print(str(eventOut))
@@ -143,6 +175,13 @@ def get_current_events(feed_url_or_path, files):
     """
 
     events_end = datetime.now()
+    # Subtract the number of days to sync
+    past_date = datetime.now() - timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0))
+
+    # Set the time to 7 am to avoiid removing items of today
+    past_date = past_date.replace(hour=7, minute=0, second=0, microsecond=0)
+    #print("past_date: ", past_date)
+    
     if config.get('ICAL_DAYS_TO_SYNC', 0) == 0:
         # default to 1 year ahead
         events_end += DEFAULT_TIMEDELTA
@@ -152,8 +191,8 @@ def get_current_events(feed_url_or_path, files):
 
     try:
         if files:
-            logger.info('> Retrieving events from local folder')
-            cal = events(file=feed_url_or_path, end=events_end)
+            logger.info(f"> Retrieving events from local folder: {feed_url_or_path}")
+            cal = events(file=feed_url_or_path, start=past_date, end=events_end)
         else:
             logger.info('> Retrieving events from iCal feed')
             # directly configure http connection object to set ssl and authentication parameters
@@ -162,8 +201,7 @@ def get_current_events(feed_url_or_path, files):
             if config.get('ICAL_FEED_USER') and config.get('ICAL_FEED_PASS'):
                 # credentials used for every connection
                 http_conn.add_credentials(name=config.get('ICAL_FEED_USER'), password=config.get('ICAL_FEED_PASS'))
-
-            cal = events(feed_url_or_path, start=datetime.now()-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0)), end=events_end, http=http_conn)
+            cal = events(feed_url_or_path, start=past_date, end=events_end, http=http_conn)
     except Exception as e:
         logger.error('> Error retrieving iCal data ({})'.format(e))
         return None
@@ -287,11 +325,15 @@ if __name__ == '__main__':
                 logger.info('patch timezone of ics files')
                 patch_ics_files(feed['source']) # patch timezone of ics files
 
-            logger.info('> Retrieving events from local folder')
-            ical_cal = get_current_events_from_files(feed['source'])
+            logger.info(f"> Retrieving events from local folder: {feed['source']}")
+            eventIn = get_current_events_from_files(feed['source'])
+            logger.info('> Filtering out events from iCal feed')
+            ical_cal = filter_out_useless_items (eventIn)
          else:
             logger.info('> Retrieving events from iCal feed')
-            ical_cal = get_current_events(feed_url_or_path=feed['source'], files=False)
+            eventIn = get_current_events(feed_url_or_path=feed['source'], files=False)
+            logger.info('> Filtering out events from iCal feed')
+            ical_cal = filter_out_useless_items (eventIn)
 
     if ical_cal is None:
         logger.error('> Error retrieving iCal data: ical_cal is None"')
