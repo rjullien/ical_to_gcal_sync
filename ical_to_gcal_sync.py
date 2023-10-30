@@ -269,6 +269,39 @@ def get_gcal_datetime(py_datetime, gcal_timezone):
 def get_gcal_date(py_datetime):
     return {u'date': py_datetime.strftime('%Y-%m-%d')}
 
+def ics_color(title):
+    """
+    Returns the colorId to use for the event based on the title of the event
+
+    Color ID	Color Name	Hex Code
+    1	Lavender	#7986cb
+    2	Sage	#33b679
+    3	Grape	#8e24aa
+    4	Flamingo	#e67c73
+    5	Banana	#f0e68c
+    6	Teal	#138d75
+    7	Sky	#82b1ff
+    8	Grapefruit	#ff8f00
+    9	Sandstone	#d97d52
+    10	Blueberry	#5978bb
+    11	Raspberry	#e91e63
+    12	Mint	#a6ffcc
+    13	Olive	#a2cf6e
+    14	Pumpkin	#ff7c4d
+    15	Apricot	#ffbf8f
+    16	Sky Blue	#87cefa
+    """
+    # test if color_ics_dict exits
+    if color_ics_dict is not None:
+        # test if the name of the event is in the dictionary
+        for title_color in color_ics_dict.keys():
+            if title_color.lower() in title.lower():
+                #print(title_color + " is in " + title.lower())
+                # return the color ID corresponding to the title
+                return color_ics_dict[title_color]
+    # return the default color ID
+    return 0
+
 def create_id(uid, begintime, endtime, prefix=''):
     """ Converts ical UUID, begin and endtime to a valid Gcal ID
 
@@ -318,6 +351,7 @@ if __name__ == '__main__':
                 logger.info('Retrieving events from enac website')
                 month_to_sync = int(config['GCAL_DAYS_TO_SYNC']) // 30
                 logger.info(f"get_enac_ics('{feed['download']}' ,'{feed['source']}', '{feed['url']}', '{config['ICAL_FEED_USER']}', '{config['ICAL_FEED_PASS']}', {month_to_sync})")
+                #print(f"get_enac_ics('{feed['download']}' ,'{feed['source']}', '{feed['url']}', '{config['ICAL_FEED_USER']}', '{config['ICAL_FEED_PASS']}', {month_to_sync})")
                 get_enac_ics(feed['download'],feed['source'],feed['url'],config['ICAL_FEED_USER'],config['ICAL_FEED_PASS'],month_to_sync) # get ics files from enac website
                 # Should use credentials to get ics files from config['ICAL_FEED_USER'] and config['ICAL_FEED_PASS'] and config['ICAL_FEED_URL'] and config['GCAL_DAYS_TO_SYNC']/30
                 # ICAL_FEED_USER = None
@@ -434,10 +468,30 @@ if __name__ == '__main__':
             if descs_differ: changes.append("descriptions")
             if needs_undelete: changes.append("undeleted")
 
+            try:
+                color_ics_dict = config['COLOR_ICS_DICT']
+            except KeyError:
+                print("No COLOR_ICS_DICT in config.py")
+                color_ics_dict = None
+            # appel fonction color
+            color_id = ics_color(gcal_event['summary'])
+
+            gcal_color = gcal_event.get('colorId')
+
+            if(gcal_color is None):
+                gcal_color = 0
+            else:
+                gcal_color = int(gcal_color)
+            if color_id != gcal_color:
+                #print("color_id: " + str(color_id) + " gcal_color: " + str(gcal_color))
+                color_differ = True
+            else:
+                color_differ = False
+
             # check if the iCal event has a different: start/end time, name, location,
             # or description, and if so sync the changes to the GCal event
-            if needs_undelete or times_differ or titles_differ or locs_differ or descs_differ:  
-                print('updating due to change undelete:'+ str(needs_undelete) + "times:" + str(times_differ) + "title:" + str(titles_differ) + "loc:" + str(locs_differ) + "desc:" + str(descs_differ))
+            if needs_undelete or times_differ or titles_differ or locs_differ or descs_differ or color_differ:  
+                print('updating due to change: undelete:'+ str(needs_undelete) + " times:" + str(times_differ) + " title:" + str(titles_differ) + " loc:" + str(locs_differ) + " desc:" + str(descs_differ)+" color:" + str(color_differ))
                 logger.info(u'> Updating event "{}" due to changes: {}'.format(log_name, ", ".join(changes)))
                 delta = ical_event.end - ical_event.start
                 # all-day events handled slightly differently
@@ -453,7 +507,6 @@ if __name__ == '__main__':
                 logger.info('Adding iCal event called "{}", starting {}'.format(ical_event.summary, gcal_event['start']))
                 # if the event was deleted, the status will be 'cancelled' - this restores it
                 gcal_event['status'] = 'confirmed'
-
                 gcal_event['summary'] = ical_event.summary
                 gcal_event['description'] = ical_event.description
 
@@ -466,6 +519,10 @@ if __name__ == '__main__':
                         url_feed = feed['source']
                 gcal_event['source'] = {'title': 'Imported from ical_to_gcal_sync.py', 'url': url_feed}
                 gcal_event['location'] = ical_event.location
+
+                # set the color of the event
+                if color_differ:
+                    gcal_event['colorId'] = color_id
 
                 service.events().update(calendarId=feed['destination'], eventId=eid, body=gcal_event).execute()
                 time.sleep(config['API_SLEEP_TIME'])
