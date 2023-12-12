@@ -26,6 +26,7 @@ import googleapiclient
 import arrow
 from googleapiclient import errors
 from icalevents.icalevents import events
+import socket
 from dateutil.tz import gettz
 
 from datetime import datetime, timezone, timedelta
@@ -335,9 +336,13 @@ if __name__ == '__main__':
     maxday =  today + timedelta(days=config['GCAL_DAYS_TO_SYNC'])
    
     # retrieve events from Google Calendar, starting from beginning of current day
-    logger.info('> Retrieving events from Google Calendar')
-    gcal_events = get_gcal_events(calendar_id=feed['destination'], service=service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0))).isoformat(), to_time=maxday.isoformat())
-
+    logger.info(f'> Retrieving events from Google Calendar from %s to %s for destination %s' % (today.isoformat()[:10], maxday.isoformat()[:10],feed['destination']))
+    try:
+        gcal_events = get_gcal_events(calendar_id=feed['destination'], service=service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0))).isoformat(), to_time=maxday.isoformat())
+    except socket.timeout:
+        print("La requête get_gcal_events a expiré. Veuillez vérifier votre connexion réseau et réessayer.")
+        logger.error("La requête get_gcal_events a expiré. Veuillez vérifier votre connexion réseau et réessayer.")
+        exit(1)
     # retrieve events from the iCal feed
     # logger.info('> Retrieving events from iCal feed')
     # ical_cal = get_current_events()
