@@ -337,6 +337,9 @@ if __name__ == '__main__':
    
     # retrieve events from Google Calendar, starting from beginning of current day
     logger.info(f'> Retrieving events from Google Calendar from %s to %s for destination %s' % (today.isoformat()[:10], maxday.isoformat()[:10],feed['destination']))
+    logger.info(f'> Retrieving events from Google Calendar from %s to %s for destination %s' % (today-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0)).isoformat()[:10], maxday.isoformat()[:10],feed['destination']))
+
+  
     try:
         gcal_events = get_gcal_events(calendar_id=feed['destination'], service=service, from_time=(today-timedelta(days=config.get('PAST_DAYS_TO_SYNC', 0))).isoformat(), to_time=maxday.isoformat())
     except socket.timeout:
